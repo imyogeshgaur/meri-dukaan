@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import NavBar from '../../assets/NavBar'
 import "../../styles/Signin.css"
+
 const Signin = () => {
   return (
     <>
@@ -18,6 +20,8 @@ const Signin = () => {
           </div>
         </div>
         <button className="btn btn-primary w-50 mx-auto mb-4">Sign In</button>
+       <Link style={{color: "blue",cursor:"pointer",textDecoration:"none"}} className="mx-auto" to="/forgetPassword">Forget Password</Link>
+        <p className='text-light text-center mt-2'>New To Meri Dukaan ?  <Link style={{color: "blue",cursor:"pointer",textDecoration:"none"}} to="/signup">Sign Up Here</Link></p>
       </div>
     </>
   )

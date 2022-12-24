@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import NavBar from '../../assets/NavBar'
 import "../../styles/Signup.css"
 
@@ -30,7 +31,8 @@ const Signup = () => {
             </select>
           </div>
         </div>
-        <button className="btn btn-primary w-50 mx-auto mb-4">Sign Up</button>
+        <button className="btn btn-primary w-50 mx-auto mb-2">Sign Up</button>
+        <p className='text-light text-center'>Already Rgistered ? <Link style={{color: "blue",cursor:"pointer",textDecoration:"none"}} className="fw-bold" to="/">Login Here</Link></p>
       </div>
     </>
   )
