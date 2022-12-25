@@ -4,10 +4,7 @@ import dotenv from "dotenv"
 const localPath = path.resolve("../backend/.env")
 dotenv.config({path:localPath})
 
-const connectionConfig = new Sequelize(process.env.DB,process.env.USER_NAME,process.env.PASSWORD,{
-    host:process.env.HOST,
-    dialect:process.env.DIALECT
-})
+const connectionConfig = new Sequelize(process.env.DB_URI)
 
 const connectToDB = async()=>{
     try {
