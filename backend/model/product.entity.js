@@ -1,18 +1,33 @@
-import { DataTypes,Sequelize} from "sequelize"
-import pg from "pg"
-const sequelize = new Sequelize('testing', 'postgres', 'root', {
-    host: 'localhost',
-    dialect: 'postgres',
-    logging:false
-  });
+import { Sequelize, DataTypes } from "sequelize";
+import * as path from "path"
+import dotenv from "dotenv"
+const localPath = path.resolve("../backend/.env")
+dotenv.config({path:localPath})
+const sequelize = new Sequelize(process.env.DB_URI);
 
 const Product = sequelize.define('Product',{
-    name:{
-        type:DataTypes.STRING
+    productId:{
+        type:DataTypes.UUID,
+        require:true,
+        primaryKey:true
     },
-    qty:{
-        type:DataTypes.STRING
+    productName:{
+        type:DataTypes.STRING,
+        require:true
+    },
+    productPrice:{
+        type:DataTypes.INTEGER,
+        require:true
+    },
+    productQuantity:{
+        type:DataTypes.INTEGER,
+        require:true
+    },
+    productVendor:{
+        type:DataTypes.UUID
     }
 })
-Product.sync({alter:true})
-export default Product
+
+Product.sync()
+
+export default Product;
