@@ -41,7 +41,7 @@ class AuthController {
             const email = req.body.email;
             const data = await this.authService.mailTheUser(email);
             if (!data) {
-                return res.status(200).send({ message: "Rest Link Shared in your Registerd Mail !!!" })
+                return res.status(200).send({ message: "Reset Link Shared in your Registerd Mail !!!" })
             } else {
                 return res.status(200).send({ message: data })
             }
