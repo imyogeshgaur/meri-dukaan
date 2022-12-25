@@ -20,5 +20,23 @@ authRouter.post("/signin",async(req,res)=>{
      }
 })
 
+authRouter.post("/forgetPassword",async(req,res)=>{
+    try {
+        const authController = new AuthController();
+        authController.forgetPassword(req,res); 
+    } catch (error) {
+        console.log("Auth Global Error : ",error)
+    }
+})
+
+authRouter.post("/resetPassword/:id",async(req,res)=>{
+    try {
+        const authController = new AuthController();
+        authController.resetPassword(req,res);
+    } catch (error) {
+        console.log("Auth Global Error : ",error)
+    }
+})
+
 
 export default authRouter;
