@@ -1,5 +1,9 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import * as path from "path"
+import dotenv from "dotenv"
+const localPath = path.resolve("../backend/.env")
+dotenv.config({path:localPath})
 
 const signInUserService = async (userData, password) => {
     try {
