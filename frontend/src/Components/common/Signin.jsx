@@ -1,9 +1,31 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import NavBar from '../../assets/NavBar'
+import axios from "axios"
+import { SIGIN_URL_DEV } from '../../constants/constant'
 import "../../styles/Signin.css"
 
 const Signin = () => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate();
+  const signInUser = async () => {
+    try {
+      const response = await axios.post(SIGIN_URL_DEV, {
+        email,
+        password
+      })
+      const data = response.data;
+      if (!data.token) {
+        alert(data.message)
+      } else {
+        console.log(data)
+        navigate("/signup")
+      }
+    } catch (error) {
+
+    }
+  }
   return (
     <>
       <NavBar />
@@ -11,17 +33,17 @@ const Signin = () => {
         <div className="card-body">
           <h5 className="card-title text-light text-center">Login Here</h5>
           <div className="mb-3">
-            <label for="formGroupExampleInput" className="form-label text-light">Enter Email</label>
-            <input type="email" className="form-control" placeholder="Enter your Email" />
+            <label className="form-label text-light">Email or UserName</label>
+            <input type="email" className="form-control" placeholder="Enter your Email or UserName" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="mb-3">
-            <label for="formGroupExampleInput2" className="form-label text-light">Enter Password</label>
-            <input type="password" className="form-control" placeholder="Enter your Password" />
+            <label className="form-label text-light">Password</label>
+            <input type="password" className="form-control" placeholder="Enter your Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
         </div>
-        <button className="btn btn-primary w-50 mx-auto mb-4">Sign In</button>
-       <Link style={{color: "blue",cursor:"pointer",textDecoration:"none"}} className="mx-auto" to="/forgetPassword">Forget Password</Link>
-        <p className='text-light text-center mt-2'>New To Meri Dukaan ?  <Link style={{color: "blue",cursor:"pointer",textDecoration:"none"}} to="/signup">Sign Up Here</Link></p>
+        <button className="btn btn-primary w-50 mx-auto mb-4" onClick={signInUser}>Sign In</button>
+        <Link style={{ color: "blue", cursor: "pointer", textDecoration: "none" }} className="mx-auto" to="/forgetPassword">Forget Password</Link>
+        <p className='text-light text-center mt-2'>New To Meri Dukaan ?  <Link style={{ color: "blue", cursor: "pointer", textDecoration: "none" }} to="/signup">Sign Up Here</Link></p>
       </div>
     </>
   )
