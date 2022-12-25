@@ -1,5 +1,4 @@
 import User from "../model/user.entity.js";
-import bcrypt from "bcrypt"
 
 class UserService {
 
@@ -13,15 +12,7 @@ class UserService {
     }
     async createUser(body) {
         try {
-            const { userName, email, name, password, role } = body;
-            const newPassword = await bcrypt.hash(password, 12);
-            const newUser = await User.create({
-                userName,
-                email,
-                name,
-                password: newPassword,
-                role
-            })
+            const newUser = await User.create(body)
             const user = await newUser.save();
             return user;
         } catch (error) {

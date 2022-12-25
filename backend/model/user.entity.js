@@ -1,8 +1,16 @@
 import { Sequelize, DataTypes } from "sequelize";
-const sequelize = new Sequelize('mysql::memory:');
+import * as path from "path"
+import dotenv from "dotenv"
+const localPath = path.resolve("../backend/.env")
+dotenv.config({path:localPath})
+const sequelize = new Sequelize(process.env.DB_URI);
 
-const User = sequelize.define({
+const User = sequelize.define('User',{
     // This is Used By Auth Module
+    userId:{
+        type:DataTypes.UUID,
+        require:true,
+    },
     userName: {
         type: DataTypes.STRING,
         require: true,
@@ -26,7 +34,6 @@ const User = sequelize.define({
     // This is Used By User Module
     firstName:{
         type:DataTypes.STRING,
-        require:true
     },
     middleName:{
         type:DataTypes.STRING,
@@ -34,31 +41,25 @@ const User = sequelize.define({
     },
     lastName:{
         type:DataTypes.STRING,
-        require:true
     },
     phone:{
         type:DataTypes.STRING,
-        require:true
     },
     addressLine1:{
         type:DataTypes.STRING,
-        require:true
     },
     addressLine2:{
         type:DataTypes.STRING,
-        require:true
     },
     city: {
         type: DataTypes.STRING,
-        require: true
+
     },
     state:{
         type:DataTypes.STRING,
-        require:true
     },
     zip:{
         type:DataTypes.INTEGER,
-        require:true
     }
 })
 
