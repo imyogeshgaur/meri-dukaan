@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import NavBar from '../../assets/NavBar'
 import axios from "axios"
-import { SIGIN_URL_DEV } from '../../constants/constant'
+import { DECODE_USER_DEV, SIGIN_URL_DEV } from '../../constants/constant'
 import "../../styles/Signin.css"
 
 const Signin = () => {
@@ -19,11 +19,24 @@ const Signin = () => {
       if (!data.token) {
         alert(data.message)
       } else {
-        console.log(data)
-        navigate("/signup")
+        localStorage.setItem("jwt", data.token)
+        const responseNext = await axios.post(DECODE_USER_DEV, "", {
+          headers: {
+            'authorization': data.token
+          }
+        })
+        const nextData = await responseNext.data;
+        const role = nextData.role;
+        if (role === "vendor") {
+          navigate("/addProduct")
+        } else if (role === "user") {
+          navigate("/products")
+        } else {
+          navigate("/allUsers")
+        }
       }
     } catch (error) {
-
+      console.log(error)
     }
   }
   return (

@@ -35,7 +35,7 @@ const ForgetPassword = () => {
           </div>
         </div>
         <button className="btn btn-primary w-50 mx-auto mb-4" onClick={userForgetPass}>Send Reset Link</button>
-        <button className="btn btn-primary w-50 mx-auto mb-4" onClick={goToPreviousPage}>Back To Login</button>
+        <button className="btn btn-success w-50 mx-auto mb-4" onClick={goToPreviousPage}>Back To Login</button>
       </div>
     </>
   )

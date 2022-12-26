@@ -1,6 +1,6 @@
 import React from 'react'
 import "../styles/NavBar.css"
-const NavBar = () => {
+const NavBar = (props) => {
     return (
         <>
             <nav class="navbar navbar-expand-lg bg-primary">
@@ -12,6 +12,11 @@ const NavBar = () => {
                         <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <h3 className="text-light">Meri Dukaan</h3>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <h5 className="text-light">{props.userName ? `Welcome ${props.userName}` : ""}</h5>
                             </li>
                         </ul>
                     </div>

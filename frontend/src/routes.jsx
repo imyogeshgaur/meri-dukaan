@@ -5,7 +5,7 @@ const NotFound = lazy(() => import('./Components/common/NotFound'));
 const ForgetPassword = lazy(() => import('./Components/common/ForgetPassword'));
 const ResetPassword = lazy(() => import('./Components/common/ResetPassword'));
 const ShowProducts = lazy(() => import('./Components/user/ShowProducts'))
-const AddProducts = lazy(() => import("./Components/vendor/AddProducts"))
+const AddProduct = lazy(() => import("./Components/vendor/AddProduct"))
 const ShowUsers = lazy(() => import("./Components/admin/ShowUsers"))
 
 // import ShowUsers from './Components/admin/ShowUsers';
@@ -23,7 +23,7 @@ const routes = [
     { path: "/forgetPassword", element: <ForgetPassword /> },
     { path: "/resetPassword/:id", element: <ResetPassword /> },
     { path: "/products", element: <ShowProducts /> },
-    { path: "/addProducts", element: <AddProducts /> },
+    { path: "/addProduct", element: <AddProduct /> },
     { path: "/allUsers", element: <ShowUsers /> },
     { path: "*", element: <NotFound /> }
 ]
