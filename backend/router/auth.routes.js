@@ -37,6 +37,14 @@ authRouter.post("/resetPassword/:id",async(req,res)=>{
         console.log("Auth Global Error : ",error)
     }
 })
+authRouter.post("/decodeUser",async(req,res)=>{
+    try {
+        const authController = new AuthController();
+        authController.decodeUserByToken(req,res);
+    } catch (error) {
+        console.log("Auth Global Error : ",error)
+    }
+})
 
 
 export default authRouter;

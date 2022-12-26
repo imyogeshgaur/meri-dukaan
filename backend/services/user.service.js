@@ -12,8 +12,7 @@ class UserService {
     }
     async createUser(body) {
         try {
-            const newUser = await User.create(body)
-            const user = await newUser.save();
+            const user = await User.create(body);
             return user;
         } catch (error) {
             console.log("User Service Error : ", error)

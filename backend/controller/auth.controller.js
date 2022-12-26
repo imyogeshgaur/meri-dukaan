@@ -14,7 +14,7 @@ class AuthController {
             return res.status(200).send(user);
         } catch (error) {
             console.log(error)
-            return res.status(500).send("Auth Service : Internal Server Error !!!")
+            return res.status(500).send("Auth Controller : Internal Server Error !!!")
         }
     }
     async signInUser(req, res) {
@@ -32,7 +32,7 @@ class AuthController {
 
         } catch (error) {
             console.log(error)
-            return res.status(500).send("Auth Service : Internal Server Error !!!")
+            return res.status(500).send("Auth Controller : Internal Server Error !!!")
         }
     }
 
@@ -47,7 +47,7 @@ class AuthController {
             }
         } catch (error) {
             console.log(error)
-            return res.status(500).send("Auth Service : Internal Server Error !!!")
+            return res.status(500).send("Auth Controller : Internal Server Error !!!")
         }
     }
     async resetPassword(req, res) {
@@ -58,7 +58,17 @@ class AuthController {
             return res.status(200).send({ message: data })
         } catch (error) {
             console.log(error)
-            return res.status(500).send("Auth Service : Internal Server Error !!!")
+            return res.status(500).send("Auth Controller : Internal Server Error !!!")
+        }
+    }
+    async decodeUserByToken(req,res){
+        try {
+            const token = req.headers.authorization;
+            const user = await this.authService.decodeUserByToken(token);
+            return res.status(200).send(user);
+        } catch (error) {
+            console.log(error)
+            return res.status(500).send("Auth Controller : Internal Server Error !!!" )
         }
     }
 }

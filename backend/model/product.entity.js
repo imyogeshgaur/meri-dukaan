@@ -13,7 +13,8 @@ const Product = sequelize.define('Product',{
     },
     productName:{
         type:DataTypes.STRING,
-        require:true
+        require:true,
+        unique:true
     },
     productPrice:{
         type:DataTypes.INTEGER,
@@ -21,6 +22,10 @@ const Product = sequelize.define('Product',{
     },
     productQuantity:{
         type:DataTypes.INTEGER,
+        require:true
+    },
+    productImage:{
+        type:DataTypes.STRING,
         require:true
     },
     productVendor:{

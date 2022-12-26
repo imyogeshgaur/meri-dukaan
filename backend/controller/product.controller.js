@@ -7,8 +7,9 @@ class ProductContoller {
     async createProduct(req, res) {
         try {
             const body = req.body;
+            const file = req.file?.filename;
             const token = req.headers.authorization;
-            const product = await this.productService.createProduct(body, token);
+            const product = await this.productService.createProduct(body,file, token);
             return res.status(201).send(product)
         } catch (error) {
             console.log(error)
