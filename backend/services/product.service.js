@@ -7,6 +7,15 @@ dotenv.config({path:localPath})
 import {v1} from "uuid"
 
 class ProductService {
+    async getAllProducts(){
+        try {
+           const products = await Product.findAll();
+           return products; 
+        } catch (error) {
+            console.log("Product Service Error : ", error)
+        }
+    }
+
     async createProduct(body,file, token) {
         try {
             const decodedVal = decodeUser(token);
