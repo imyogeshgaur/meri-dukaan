@@ -113,7 +113,6 @@ class AuthService {
             const decodedVal = decodeUser(token);
             const user = await User.findOne({
                 where: { userId: decodedVal.payload.userId },
-                attributes: ['userName', 'email', 'firstName', 'role']
             })
             return user;
         } catch (error) {

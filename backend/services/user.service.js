@@ -10,17 +10,13 @@ class UserService {
             console.log("User Service Error : ", error)
         }
     }
-    async createUser(body) {
+    async updateUser(userId,body) {
+        console.log(body)
         try {
-            const user = await User.create(body);
+            const user = await User.update(body,{
+                where:{userId}
+            });
             return user;
-        } catch (error) {
-            console.log("User Service Error : ", error)
-        }
-    }
-    async updateUser() {
-        try {
-
         } catch (error) {
             console.log("User Service Error : ", error)
         }
