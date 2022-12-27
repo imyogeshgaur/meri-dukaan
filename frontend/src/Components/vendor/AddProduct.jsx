@@ -21,24 +21,30 @@ const AddProduct = () => {
         headers: {
           'authorization': token
         }
-      }).then(res => setData(res.data))
+      }).then(res => {
+        if (res.data.role === "user") {
+          navigate("/unauthorized")
+        } else {
+          setData(res.data)
+        }
+      })
     }
   }, [])
 
   const addProduct = async () => {
     try {
       const formData = new FormData();
-      formData.append("productName",productName);
-      formData.append("productQuantity",productQuantity);
-      formData.append("productPrice",productPrice);
-      formData.append("productImage",file)
-      const response = await fetch(ADD_PRODUCT_DEV,{
-        method:"POST",
-        mode:'cors',
-        headers:{
-          "authorization":token
+      formData.append("productName", productName);
+      formData.append("productQuantity", productQuantity);
+      formData.append("productPrice", productPrice);
+      formData.append("productImage", file)
+      const response = await fetch(ADD_PRODUCT_DEV, {
+        method: "POST",
+        mode: 'cors',
+        headers: {
+          "authorization": token
         },
-        body:formData
+        body: formData
       })
       const data = await response.json();
       if (data) {
@@ -54,10 +60,12 @@ const AddProduct = () => {
       console.log(error)
     }
   }
-
+  const goToVendorProfile = ()=>{
+    window.location.href = "vendor"
+  }
   return (
     <>
-      <NavBar userName={Data.userName ? Data.userName : Data.firstName} />
+      <NavBar userName={Data.userName ? Data.userName : Data.firstName}/>
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Add Product</h5>
@@ -75,11 +83,11 @@ const AddProduct = () => {
           </div>
           <div className="mb-3">
             <label className="form-label text-light">Product Image</label>
-            <input type="file" className="form-control" placeholder="Enter your Product Quantity" onChange={(e)=>setFile(e.target.files[0])}/>
+            <input type="file" className="form-control" placeholder="Enter your Product Quantity" onChange={(e) => setFile(e.target.files[0])} />
           </div>
         </div>
         <button className="btn btn-primary w-50 mx-auto mb-4" onClick={addProduct}>Add Product</button>
-        <Link className="btn btn-success w-50 mx-auto mb-4">View Profile</Link>
+        <button className="btn btn-success w-50 mx-auto mb-4" onClick={goToVendorProfile}>View Profile</button>
       </div>
     </>
   )

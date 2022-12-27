@@ -1,9 +1,9 @@
-import { FiLogOut } from "react-icons/fi"
+import {FiLogOut} from "react-icons/fi"
 import { useNavigate } from "react-router"
 import "../styles/NavBar.css"
-const NavBar = (props) => {
+const UpdateUserNav = () => {
     const navigate = useNavigate();
-    const logoutUser = () => {
+    const logoutUser = ()=>{
         localStorage.clear("jwt")
         navigate("/")
     }
@@ -20,18 +20,10 @@ const NavBar = (props) => {
                                 <h3 className="text-light">Meri Dukaan</h3>
                             </li>
                         </ul>
-                        <ul class="navbar-nav mx-auto ms-5">
-                            <li class="nav-item">
-                                <h5 className="text-light">{props.userName ? `Welcome ${props.userName}` : ""}</h5>
-                            </li>
-                        </ul>
                     </div>
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            {props.userName ?
-                                <h3 className="text-light" onClick={logoutUser}><FiLogOut /></h3>
-                                : ""
-                            }
+                            <h3 className="text-light" onClick={logoutUser}><FiLogOut/></h3>
                         </li>
                     </ul>
                 </div>
@@ -40,4 +32,4 @@ const NavBar = (props) => {
     )
 }
 
-export default NavBar
+export default UpdateUserNav

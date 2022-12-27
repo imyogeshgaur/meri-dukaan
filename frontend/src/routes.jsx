@@ -9,6 +9,8 @@ const ShowProducts = lazy(() => import('./Components/user/ShowProducts'))
 const AddProduct = lazy(() => import("./Components/vendor/AddProduct"))
 const ShowUsers = lazy(() => import("./Components/admin/ShowUsers"))
 const UserProfile = lazy(()=>import("./Components/user/UserProfile"))
+const VendorProfile = lazy(()=>import("./Components/vendor/vendorProfile"))
+const NotAuthorized = lazy(()=>import("./Components/common/NotAuthorized"))
 // import ShowUsers from './Components/admin/ShowUsers';
 // import AddProducts from './Components/vendor/AddProducts';
 // import ForgetPassword from './Components/common/ForgetPassword';
@@ -17,6 +19,8 @@ const UserProfile = lazy(()=>import("./Components/user/UserProfile"))
 // import Signin from './Components/common/Signin';
 // import Signup from './Components/common/Signup';
 // import ShowProducts from './Components/user/ShowProducts';
+// import NotAuthorized from "./Components/common/NotAuthorized";
+// import VendorProfile from "./Components/vendor/vendorProfile";
 
 const routes = [
     { path: "/", element: <Signin /> },
@@ -27,7 +31,9 @@ const routes = [
     { path: "/addProduct", element: <AddProduct /> },
     { path: "/allUsers", element: <ShowUsers /> },
     { path: "/user", element: <UserProfile /> },
-    { path: "*", element: <NotFound /> }
+    { path: "/vendor", element: <VendorProfile /> },
+    { path: "*", element: <NotFound /> },
+    {path:"/unauthorized",element:<NotAuthorized />}
 ]
 
 export default routes;

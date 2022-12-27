@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SHOW_PRODUCTS_DEV } from '../../constants/constant';
 import Card from "../../assets/Card"
-import { BsSearch } from "react-icons/bs"
+import { FaUserEdit } from "react-icons/fa"
+import { BsFillCartFill } from "react-icons/bs"
+import { FiLogOut } from "react-icons/fi"
 import "../../styles/ShowProducts.css"
+
 const ShowProducts = () => {
   const token = localStorage.getItem("jwt");
   const [Data, setData] = useState([])
@@ -19,8 +22,8 @@ const ShowProducts = () => {
           'authorization': token
         }
       })
-      .then(res =>setData(res.data))
-      .catch(err=>console.log(err))
+        .then(res => setData(res.data))
+        .catch(err => console.log(err))
     }
   }, [])
 
@@ -32,6 +35,15 @@ const ShowProducts = () => {
     }
     return null;
   })
+
+  const navigateToProfile = () => {
+    window.location.href = "user"
+  }
+
+  const logoutUser = () => {
+    localStorage.clear("jwt")
+    navigate("/")
+  }
   return (
     <>
       <nav class="navbar navbar-expand-lg bg-primary">
@@ -48,31 +60,38 @@ const ShowProducts = () => {
             <ul class="navbar-nav">
               <li class="nav-item">
                 <div className="d-inline-flex">
+                  <BsFillCartFill size={49} color={"white"} className='mx-2' />
+                  <FaUserEdit size={49} color={"white"} className='mx-2' onClick={navigateToProfile} />
                   <input type="text" className="form-control mx-2" placeholder="Search Here" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
               </li>
             </ul>
           </div>
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <h3 className="text-light" onClick={logoutUser}><FiLogOut /></h3>
+            </li>
+          </ul>
         </div>
       </nav>
       <div className="conatiner">
         <div className="row mx-3">
           {
-            filteredData.length ===0 ? <h1 className='text-center'>No Item Found !!!</h1> :
-            filteredData.map((val) => {
-              return (
-                <>
-                  <div className="col">
-                    <Card
-                      productImage={val.productImage}
-                      productPrice={val.productPrice}
-                      productName={val.productName}
-                      productQuantity={val.productQuantity}
-                    />
-                  </div>
-                </>
-              )
-            }) 
+            filteredData.length === 0 ? <h1 className='text-center'>No Item Found !!!</h1> :
+              filteredData.map((val) => {
+                return (
+                  <>
+                    <div className="col">
+                      <Card
+                        productImage={val.productImage}
+                        productPrice={val.productPrice}
+                        productName={val.productName}
+                        productQuantity={val.productQuantity}
+                      />
+                    </div>
+                  </>
+                )
+              })
           }
         </div>
       </div>

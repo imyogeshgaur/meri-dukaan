@@ -4,6 +4,7 @@ import "../../styles/userProfile.css"
 import { useNavigate } from 'react-router';
 import { DECODE_USER_DEV } from "../../constants/constant"
 import { UPDATE_USER_DEV } from "../../constants/constant"
+import UpdateUserNav from '../../assets/UpdateUserNav';
 const UserProfile = () => {
   const token = localStorage.getItem("jwt");
 
@@ -30,18 +31,22 @@ const UserProfile = () => {
           'authorization': token
         }
       }).then(res => {
-        setuserId(res.data.userId)
-        setuserName(res.data.userName);
-        setfirstName(res.data.firstName);
-        setmiddleName(res.data.middleName);
-        setlastName(res.data.lastName);
-        setphone(res.data.phone);
-        setemail(res.data.email);
-        setaddressLine1(res.data.addressLine1);
-        setaddressLine2(res.data.addressLine2);
-        setstate(res.data.state);
-        setcity(res.data.city);
-        setzip(res.data.zip)
+        if (res.data.role === "vendor") {
+          navigate("/unauthorized")
+        } else {
+          setuserId(res.data.userId)
+          setuserName(res.data.userName);
+          setfirstName(res.data.firstName);
+          setmiddleName(res.data.middleName);
+          setlastName(res.data.lastName);
+          setphone(res.data.phone);
+          setemail(res.data.email);
+          setaddressLine1(res.data.addressLine1);
+          setaddressLine2(res.data.addressLine2);
+          setstate(res.data.state);
+          setcity(res.data.city);
+          setzip(res.data.zip)
+        }
       }
       )
     }
@@ -95,11 +100,12 @@ const UserProfile = () => {
   }
 
   const goOneStepBack = () => {
-    window.history.back();
+    window.location.pathname = "products"
   }
   return (
     <>
-      <div className="card mx-auto mt-4">
+    <UpdateUserNav />
+      <div className="card mx-auto mt-1">
         <div className="card-body">
           <div className="wrapper mt-3" id='template1'>
             <div className="file-upload">
@@ -113,7 +119,7 @@ const UserProfile = () => {
               <input type="file" id="userInput" />
             </div>
           </div>
-          <h5 className="card-title text-center my-3">{userName} Profile</h5>
+          <h5 className="card-title text-center text-light my-3">{userName} Profile</h5>
           <div className="row mt-2">
             <div className="col">
               <input
