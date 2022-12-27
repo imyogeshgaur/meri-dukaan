@@ -99,7 +99,7 @@ const UserProfile = () => {
                 className="form-control"
                 placeholder='Enter Your Middle Name'
                 value={middleName}
-                onChange={(e) => setlastName(e.target.value)}
+                onChange={(e) => setmiddleName(e.target.value)}
               />
             </div>
             <div className="col">
