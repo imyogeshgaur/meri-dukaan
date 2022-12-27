@@ -48,8 +48,27 @@ const UserProfile = () => {
   }, [])
 
   const handleUpdate = async () => {
+    console.log(firstName,
+      middleName,
+      lastName,
+      phone,
+      addressLine1,
+      addressLine2,
+      state,
+      city,
+      zip)
     try {
-      const response = await axios.get(UPDATE_USER_DEV + userId, {
+      const response = await axios.put(UPDATE_USER_DEV + userId, {
+        firstName,
+        middleName,
+        lastName,
+        phone,
+        addressLine1,
+        addressLine2,
+        state,
+        city,
+        zip
+      }, {
         headers: {
           'authorization': token
         }
@@ -57,13 +76,25 @@ const UserProfile = () => {
       const data = await response.data;
       if (data.message === "User Detail Updated !!!") {
         alert(data.message);
+        setuserId("")
+        setuserName("");
+        setfirstName("");
+        setmiddleName("");
+        setlastName("");
+        setphone("");
+        setemail("");
+        setaddressLine1("");
+        setaddressLine2("");
+        setstate("");
+        setcity("");
+        setzip("")
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  const goOneStepBack = ()=>{
+  const goOneStepBack = () => {
     window.history.back();
   }
   return (
@@ -90,7 +121,7 @@ const UserProfile = () => {
                 className="form-control"
                 placeholder="Enter Your First Name"
                 value={firstName}
-                onchange={(e) => setfirstName(e.target.value)}
+                onChange={(e) => setfirstName(e.target.value)}
               />
             </div>
             <div className="col">
@@ -152,31 +183,31 @@ const UserProfile = () => {
           </div>
           <div className="row mt-4">
             <div className="col">
-              <input 
-              type="text" 
-              className="form-control"
-               placeholder="Enter Your State"
-               value={state}
-               onChange={(e)=>setstate(e.target.value)}
-               />
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Your State"
+                value={state}
+                onChange={(e) => setstate(e.target.value)}
+              />
             </div>
             <div className="col">
-              <input 
-              type="text" 
-              className="form-control" 
-              placeholder="Enter Your City" 
-              value={city}
-              onChange={(e)=>setcity(e.target.value)}
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Your City"
+                value={city}
+                onChange={(e) => setcity(e.target.value)}
               />
             </div>
           </div>
           <div className="row mt-4 mx-1">
-            <input 
-            type="text" 
-            className="form-control" 
-            placeholder="Enter Your Zip Code"
-            value={zip}
-            onChange={(e)=>setzip(e.target.value)} />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter Your Zip Code"
+              value={zip}
+              onChange={(e) => setzip(e.target.value)} />
           </div>
         </div>
         <div className="d-inline-flex">
