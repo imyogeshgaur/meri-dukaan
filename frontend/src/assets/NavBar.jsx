@@ -1,5 +1,6 @@
 import React from 'react'
 import "../styles/NavBar.css"
+import { BsSearch } from "react-icons/bs"
 const NavBar = (props) => {
     return (
         <>
@@ -9,7 +10,7 @@ const NavBar = (props) => {
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <h3 className="text-light">Meri Dukaan</h3>
                             </li>

@@ -29,7 +29,7 @@ const Signin = () => {
         const role = nextData.role;
         if (role === "vendor") {
           navigate("/addProduct")
-        } else if (role === "user") {
+        } else if (role == "user") {
           navigate("/products")
         } else {
           navigate("/allUsers")
