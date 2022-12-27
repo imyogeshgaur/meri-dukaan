@@ -19,7 +19,8 @@ const ShowProducts = () => {
           'authorization': token
         }
       })
-        .then(res => { setData(res.data); console.log(res.data) })
+      .then(res =>setData(res.data))
+      .catch(err=>console.log(err))
     }
   }, [])
 
