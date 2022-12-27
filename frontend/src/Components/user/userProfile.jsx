@@ -7,6 +7,7 @@ import { UPDATE_USER_DEV } from "../../constants/constant"
 const UserProfile = () => {
   const token = localStorage.getItem("jwt");
 
+  const [userId, setuserId] = useState("")
   const [userName, setuserName] = useState("")
   const [firstName, setfirstName] = useState("")
   const [middleName, setmiddleName] = useState("")
@@ -29,6 +30,7 @@ const UserProfile = () => {
           'authorization': token
         }
       }).then(res => {
+        setuserId(res.data.userId)
         setuserName(res.data.userName);
         setfirstName(res.data.firstName);
         setmiddleName(res.data.middleName);
@@ -47,7 +49,7 @@ const UserProfile = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.get(UPDATE_USER_DEV, {
+      const response = await axios.get(UPDATE_USER_DEV + userId, {
         headers: {
           'authorization': token
         }
