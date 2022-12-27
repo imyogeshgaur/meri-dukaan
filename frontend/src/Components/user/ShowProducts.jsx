@@ -48,8 +48,7 @@ const ShowProducts = () => {
             <ul class="navbar-nav">
               <li class="nav-item">
                 <div className="d-inline-flex">
-                  <input type="text" className="form-control mx-2" value={search} onChange={(e) => setSearch(e.target.value)} />
-                  <button className="btn btn-secondary"><BsSearch /></button>
+                  <input type="text" className="form-control mx-2" placeholder="Search Here" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
               </li>
             </ul>
@@ -59,6 +58,7 @@ const ShowProducts = () => {
       <div className="conatiner">
         <div className="row mx-3">
           {
+            filteredData.length ===0 ? <h1 className='text-center'>No Item Found !!!</h1> :
             filteredData.map((val) => {
               return (
                 <>
@@ -72,7 +72,7 @@ const ShowProducts = () => {
                   </div>
                 </>
               )
-            })
+            }) 
           }
         </div>
       </div>
