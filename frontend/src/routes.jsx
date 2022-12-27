@@ -9,7 +9,7 @@ const ShowProducts = lazy(() => import('./Components/user/ShowProducts'))
 const AddProduct = lazy(() => import("./Components/vendor/AddProduct"))
 const ShowUsers = lazy(() => import("./Components/admin/ShowUsers"))
 const UserProfile = lazy(()=>import("./Components/user/UserProfile"))
-const VendorProfile = lazy(()=>import("./Components/vendor/vendorProfile"))
+const VendorProfile = lazy(()=>import("./Components/vendor/VendorProfile"))
 const NotAuthorized = lazy(()=>import("./Components/common/NotAuthorized"))
 // import ShowUsers from './Components/admin/ShowUsers';
 // import AddProducts from './Components/vendor/AddProducts';

@@ -1,14 +1,35 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import NavBar from '../../assets/NavBar'
 import axios from "axios"
 import { DECODE_USER_DEV, SIGIN_URL_DEV } from '../../constants/constant'
 import "../../styles/Signin.css"
 
+
 const Signin = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate();
+  const token = localStorage.getItem("jwt");
+
+  useEffect(() => {
+    if (token) {
+      axios.post(DECODE_USER_DEV, "", {
+        headers: {
+          'authorization': token
+        }
+      })
+        .then(res => {
+          if (res.data.role === "user") {
+            navigate("/products")
+          } else {
+            navigate("/addProduct")
+          }
+        })
+    }
+  }, [])
+
+
   const signInUser = async () => {
     try {
       const response = await axios.post(SIGIN_URL_DEV, {
