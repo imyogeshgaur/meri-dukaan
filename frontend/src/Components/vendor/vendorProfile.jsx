@@ -8,7 +8,7 @@ import UpdateUserNav from '../../assets/UpdateUserNav';
 const VendorProfile = () => {
   const token = localStorage.getItem("jwt");
 
-  const [userId, setuserId] = useState("")
+  const [file, setfile] = useState("")
   const [userName, setuserName] = useState("")
   const [firstName, setfirstName] = useState("")
   const [middleName, setmiddleName] = useState("")
@@ -34,7 +34,6 @@ const VendorProfile = () => {
         if (res.data.role === "user") {
           navigate("/unauthorized")
         } else {
-          setuserId(res.data.userId)
           setuserName(res.data.userName);
           setfirstName(res.data.firstName);
           setmiddleName(res.data.middleName);
@@ -45,7 +44,8 @@ const VendorProfile = () => {
           setaddressLine2(res.data.addressLine2);
           setstate(res.data.state);
           setcity(res.data.city);
-          setzip(res.data.zip)
+          setzip(res.data.zip);
+          setfile(res.data.userImage);
         }
       }
       )
@@ -53,35 +53,31 @@ const VendorProfile = () => {
   }, [])
 
   const handleUpdate = async () => {
-    console.log(firstName,
-      middleName,
-      lastName,
-      phone,
-      addressLine1,
-      addressLine2,
-      state,
-      city,
-      zip)
     try {
-      const response = await axios.put(UPDATE_USER_DEV + userId, {
-        firstName,
-        middleName,
-        lastName,
-        phone,
-        addressLine1,
-        addressLine2,
-        state,
-        city,
-        zip
-      }, {
+      const formData = new FormData();
+
+      formData.append("firstName", firstName);
+      formData.append("middleName", middleName);
+      formData.append("lastName", lastName);
+      formData.append("phone", phone);
+      formData.append("addressLine1", addressLine1);
+      formData.append("addressLine2", addressLine2);
+      formData.append("state", state);
+      formData.append("city", city);
+      formData.append("zip", zip);
+      formData.append("userImage", file);
+
+      const response = await axios({
+        baseURL: UPDATE_USER_DEV,
+        method: 'PUT',
         headers: {
           'authorization': token
-        }
-      })
+        },
+        data: formData
+      });
       const data = await response.data;
       if (data.message === "User Detail Updated !!!") {
         alert(data.message);
-        setuserId("")
         setuserName("");
         setfirstName("");
         setmiddleName("");
@@ -92,7 +88,8 @@ const VendorProfile = () => {
         setaddressLine2("");
         setstate("");
         setcity("");
-        setzip("")
+        setzip("");
+        setfile("");
       }
     } catch (error) {
       console.log(error);
@@ -100,7 +97,7 @@ const VendorProfile = () => {
   }
 
   const goOneStepBack = () => {
-    window.location.href = "addProduct"
+    window.location.href = "vendorProducts"
   }
   return (
     <>
@@ -109,8 +106,12 @@ const VendorProfile = () => {
         <div className="card-body">
           <div className="wrapper mt-3" id='template1'>
             <div className="file-upload">
-              <input type="file" id="userInput" />
-              <i className="fa-solid fa-user"></i>
+            {
+                  file ? 
+                  <img src={file} alt="user" width={150} height={150}/>
+                  : 
+                  <input type="file" id="userInput" onChange={(e) => setfile(e.target.files[0])} />
+              }
             </div>
           </div>
           <div className="wrapper mt-3 hide" id='template2'>

@@ -38,15 +38,16 @@ const AddProduct = () => {
       formData.append("productQuantity", productQuantity);
       formData.append("productPrice", productPrice);
       formData.append("productImage", file)
-      const response = await fetch(ADD_PRODUCT_DEV, {
-        method: "POST",
-        mode: 'cors',
-        headers: {
-          "authorization": token
+    
+      const response = await axios({
+        baseURL:ADD_PRODUCT_DEV,
+        method:'POST',
+        headers:{
+          'authorization':token
         },
-        body: formData
+        data:formData
       })
-      const data = await response.json();
+      const data = await response.data;
       if (data) {
         alert("Product Added Sucessfully !!!")
         setProductName("")

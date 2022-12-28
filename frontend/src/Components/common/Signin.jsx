@@ -23,7 +23,7 @@ const Signin = () => {
           if (res.data.role === "user") {
             navigate("/products")
           } else {
-            navigate("/addProduct")
+            navigate("/vendorProducts")
           }
         })
     }
@@ -49,7 +49,7 @@ const Signin = () => {
         const nextData = await responseNext.data;
         const role = nextData.role;
         if (role === "vendor") {
-          navigate("/addProduct")
+          navigate("/vendorProducts")
         } else if (role == "user") {
           navigate("/products")
         } else {
@@ -60,6 +60,7 @@ const Signin = () => {
       console.log(error)
     }
   }
+
   return (
     <>
       <NavBar />
