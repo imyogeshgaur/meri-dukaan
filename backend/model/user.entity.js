@@ -32,6 +32,9 @@ const User = sequelize.define('User',{
         require: true
     },
     // This is Used By User Module
+    userImage:{
+        type:DataTypes.STRING
+    },
     firstName:{
         type:DataTypes.STRING,
     },

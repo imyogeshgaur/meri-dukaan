@@ -25,6 +25,16 @@ class ProductContoller {
             return res.status(500).send("Product Controller : Internal Server Error !!!")
         }
     }
+    async getAllProductsOfVendor(req, res) {
+        try {
+            const token = req.headers.authorization;
+            const vendorProduct = await this.productService.getAllProductsOfVendor(token);
+            return res.status(200).send(vendorProduct);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send("Product Controller : Internal Server Error !!!");
+        }
+    }
 }
 
 export default ProductContoller;

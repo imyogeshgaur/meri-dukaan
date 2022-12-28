@@ -2,7 +2,7 @@ import multer from "multer"
 import path from "path";
 import dotenv from "dotenv"
 const localPath = path.resolve("../backend/.env")
-dotenv.config({path:localPath})
+dotenv.config({ path: localPath })
 import { v1 } from 'uuid';
 
 const tempProductStorage = multer.diskStorage({
@@ -25,4 +25,4 @@ const tempProfileStorage = multer.diskStorage({
 });
 
 export const uploadProductImage = multer({ storage: tempProductStorage }).single("productImage");
-export const uploadProfileImage = multer({ storage: tempProfileStorage }).single("profileImage");
+export const uploadProfileImage = multer({ storage: tempProfileStorage }).single("userImage");

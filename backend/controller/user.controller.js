@@ -1,43 +1,40 @@
-import  UserService from "../services/user.service.js";
+import UserService from "../services/user.service.js";
 
-class UserController{
-    constructor(){
+class UserController {
+    constructor() {
         this.userService = new UserService();
     }
 
-    async getUsers(req,res){
-
-    }
-    async createUser(req,res){
+    async getAllUsers(req, res) {
         try {
-            const body = req.body;
-            const user = await this.userService.createUser(body);
-            return res.status(201).send(user);
+            const users = await this.userService.getAllUsers();
+            return res.status(200).send(users);
         } catch (error) {
-           console.log(error) 
-           return res.status(500).send("User Controller : Internal Server Error !!!");
+            console.log(error);
+            return res.status(500).send(error);
         }
     }
-    async updateUser(req,res){
+    async updateUser(req, res) {
         try {
-            const id = req.params.id;
+            const file = req.file?.filename;
+            const token = req.headers.authorization;
             const body = req.body;
-            const user = await this.userService.updateUser(id,body);
-            if(user[0]){
-                return res.status(200).send({message:"User Detail Updated !!!"})
-            }else{
-                return res.status(200).send({message:"User Detail Not Updated !!!"})
+            const user = await this.userService.updateUser(token, body, file);
+            if (user[0]) {
+                return res.status(200).send({ message: "User Detail Updated !!!" })
+            } else {
+                return res.status(200).send({ message: "User Detail Not Updated !!!" })
             }
         } catch (error) {
-            console.log(error) 
+            console.log(error)
             return res.status(500).send("User Controller : Internal Server Error !!!");
         }
     }
-    async deleteUser(req,res){
+    async deleteUser(req, res) {
         try {
-            
+
         } catch (error) {
-            console.log(error) 
+            console.log(error)
             return res.status(500).send("User Controller : Internal Server Error !!!");
         }
     }

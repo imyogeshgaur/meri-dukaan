@@ -1,8 +1,9 @@
+import decodeUser from "../helpers/decodeUser.js";
 import User from "../model/user.entity.js";
 
 class UserService {
 
-    async getUsers() {
+    async getAllUsers() {
         try {
             const users = await User.findAll();
             return users;
@@ -10,12 +11,20 @@ class UserService {
             console.log("User Service Error : ", error)
         }
     }
-    async updateUser(userId,body) {
-        console.log(body)
+    
+    async updateUser(token, body, file) {
+        const userMetaData = decodeUser(token);
+        const userId = userMetaData.payload.userId;
+        const userImage = process.env.PROFILE_FILE_GET_URL + file;
         try {
-            const user = await User.update(body,{
-                where:{userId}
-            });
+            const user = await User.update(
+                {
+                    ...body,
+                    userImage
+                }
+                , {
+                    where: { userId }
+                });
             return user;
         } catch (error) {
             console.log("User Service Error : ", error)
@@ -25,7 +34,7 @@ class UserService {
         try {
 
         } catch (error) {
-            console.log("User Service Error : ",error)
+            console.log("User Service Error : ", error)
         }
     }
 }
