@@ -32,41 +32,49 @@ const AddProduct = () => {
   }, [])
 
   const addProduct = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("productName", productName);
-      formData.append("productQuantity", productQuantity);
-      formData.append("productPrice", productPrice);
-      formData.append("productImage", file)
-    
-      const response = await axios({
-        baseURL:ADD_PRODUCT_DEV,
-        method:'POST',
-        headers:{
-          'authorization':token
-        },
-        data:formData
-      })
-      const data = await response.data;
-      if (data) {
-        alert("Product Added Sucessfully !!!")
-        setProductName("")
-        setProductPrice("")
-        setProductQuantity("")
-        setFile("")
-      } else {
-        alert(data);
+    const regx = /^\d+$/
+    if (!productName || !productPrice || !productQuantity || !file) {
+      alert("Please Enter all Fields !!!");
+    } else if ((!regx.test(productPrice)) || !regx.test(productQuantity)) {
+      alert("Product Price and Quantity should be an Integer !!!")
+    }
+    else {
+      try {
+        const formData = new FormData();
+        formData.append("productName", productName);
+        formData.append("productQuantity", productQuantity);
+        formData.append("productPrice", productPrice);
+        formData.append("productImage", file)
+
+        const response = await axios({
+          baseURL: ADD_PRODUCT_DEV,
+          method: 'POST',
+          headers: {
+            'authorization': token
+          },
+          data: formData
+        })
+        const data = await response.data;
+        if (data) {
+          alert("Product Added Sucessfully !!!")
+          setProductName("")
+          setProductPrice("")
+          setProductQuantity("")
+          setFile("")
+        } else {
+          alert(data);
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
     }
   }
-  const goToVendorProfile = ()=>{
+  const goToVendorProfile = () => {
     window.location.href = "vendor"
   }
   return (
     <>
-      <NavBar userName={Data.userName ? Data.userName : Data.firstName}/>
+      <NavBar userName={Data.userName ? Data.userName : Data.firstName} />
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Add Product</h5>

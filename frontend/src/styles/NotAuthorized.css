@@ -3,26 +3,3 @@
     margin-top:7rem;
     background-color: rgb(145, 97, 233)!important;
 }
-
-.btn-primary{
-    background-color: rgb(109, 40, 236)!important;   
-    outline: none!important;
-    border: none!important;
-}
-
-.btn-primary:active{
-    background-color: rgb(52, 28, 95)!important;   
-    outline: none!important;
-    border: none!important;
-}
-
-.btn-primary:hover{
-    background-color: rgb(109, 40, 236);   
-    outline: none;
-    border: none;
-}
-
-.form-control:focus{
-    box-shadow: none!important;
-    outline: none!important;
-}

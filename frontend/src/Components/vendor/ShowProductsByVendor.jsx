@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 import { SHOW_VENDOR_PRODUCT_DEV } from '../../constants/constant';
 import Card from "../../assets/Card"
 import { FaUserEdit } from "react-icons/fa"
-import { BsFillCartFill } from "react-icons/bs"
+import {GoDiffAdded} from "react-icons/go"
 import { FiLogOut } from "react-icons/fi"
 import "../../styles/ShowProducts.css"
 
@@ -36,10 +36,6 @@ const ShowProductsByVendor = () => {
     return null;
   })
 
-  const navigateToProfile = () => {
-    window.location.href = "vendor"
-  }
-
   const logoutUser = () => {
     localStorage.clear("jwt")
     navigate("/")
@@ -60,8 +56,12 @@ const ShowProductsByVendor = () => {
             <ul class="navbar-nav">
               <li class="nav-item">
                 <div className="d-inline-flex">
-                  <BsFillCartFill size={49} color={"white"} className='mx-2' />
-                  <FaUserEdit size={49} color={"white"} className='mx-2' onClick={navigateToProfile} />
+                  <Link to="/addProduct">
+                    <GoDiffAdded size={30} color={"white"} className='mx-2 mt-1' />
+                  </Link>
+                  <Link to="/vendor">
+                     <FaUserEdit size={37} color={"white"} className='mx-2'/>
+                  </Link>
                   <input type="text" className="form-control mx-2" placeholder="Search Here" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
               </li>

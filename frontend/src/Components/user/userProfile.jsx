@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from "axios";
-import "../../styles/userProfile.css"
+import "../../styles/UserProfile.css"
 import { useNavigate } from 'react-router';
 import { DECODE_USER_DEV } from "../../constants/constant"
 import { UPDATE_USER_DEV } from "../../constants/constant"

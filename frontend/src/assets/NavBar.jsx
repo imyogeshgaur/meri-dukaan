@@ -2,8 +2,8 @@ import { FiLogOut } from "react-icons/fi"
 import { useNavigate } from "react-router"
 import "../styles/NavBar.css"
 const NavBar = (props) => {
-    const navigate = useNavigate();
     const logoutUser = () => {
+        const navigate = useNavigate();
         localStorage.clear("jwt")
         navigate("/")
     }

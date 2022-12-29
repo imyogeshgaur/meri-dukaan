@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from "axios";
-import "../../styles/userProfile.css"
+import "../../styles/UserProfile.css"
 import { useNavigate } from 'react-router';
 import { DECODE_USER_DEV } from "../../constants/constant"
 import { UPDATE_USER_DEV } from "../../constants/constant"
 import UpdateUserNav from '../../assets/UpdateUserNav';
+import { Link } from 'react-router-dom';
 const VendorProfile = () => {
   const token = localStorage.getItem("jwt");
 
@@ -96,9 +97,6 @@ const VendorProfile = () => {
     }
   }
 
-  const goOneStepBack = () => {
-    window.location.href = "vendorProducts"
-  }
   return (
     <>
     <UpdateUserNav />
@@ -219,7 +217,7 @@ const VendorProfile = () => {
         </div>
         <div className="d-inline-flex">
           <button className="btn btn-primary mb-3 w-50 me-3 ms-2" onClick={handleUpdate}>Update Details</button>
-          <button className="btn btn-success mb-3 w-50 me-2" onClick={goOneStepBack}>Back</button>
+          <Link className="btn btn-success mb-3 w-50 me-2" to="/vendorProducts">Back</Link>
         </div>
       </div>
     </>

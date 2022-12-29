@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 import { SHOW_PRODUCTS_DEV } from '../../constants/constant';
 import Card from "../../assets/Card"
@@ -36,10 +36,6 @@ const ShowProducts = () => {
     return null;
   })
 
-  const navigateToProfile = () => {
-    window.location.href = "user"
-  }
-
   const logoutUser = () => {
     localStorage.clear("jwt")
     navigate("/")
@@ -61,7 +57,9 @@ const ShowProducts = () => {
               <li class="nav-item">
                 <div className="d-inline-flex">
                   <BsFillCartFill size={49} color={"white"} className='mx-2' />
-                  <FaUserEdit size={49} color={"white"} className='mx-2' onClick={navigateToProfile} />
+                  <Link to="/user">
+                      <FaUserEdit size={37} color={"white"} className='mx-2 mt-1'/>
+                  </Link>
                   <input type="text" className="form-control mx-2" placeholder="Search Here" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
               </li>
