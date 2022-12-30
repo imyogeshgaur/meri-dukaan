@@ -16,7 +16,7 @@ const Card = (props) => {
       setcounter(counter + 1)
 
       //Todo : Add Items in localStorage
-     
+      
       document.getElementById("removeButton").classList.remove("disabled")
     }
   }
