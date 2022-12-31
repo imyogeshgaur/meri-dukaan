@@ -53,7 +53,7 @@ const Signin = () => {
         } else if (role == "user") {
           navigate("/products")
         } else {
-          navigate("/allUsers")
+          navigate("/admin")
         }
       }
     } catch (error) {

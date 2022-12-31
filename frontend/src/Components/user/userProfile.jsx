@@ -107,9 +107,12 @@ const UserProfile = () => {
           <div className="wrapper mt-3" id='template1'>
             <div className="file-upload">
               {
-                  file ? 
-                  <img src={file} alt="user" width={150} height={150}/>
-                  : 
+                file ?
+                  <>
+                    <img src={file} alt="user" width={150} height={150} />
+                    <input type="file" id="userInput" onChange={(e) => setfile(e.target.files[0])} />
+                  </>
+                  :
                   <input type="file" id="userInput" onChange={(e) => setfile(e.target.files[0])} />
               }
             </div>

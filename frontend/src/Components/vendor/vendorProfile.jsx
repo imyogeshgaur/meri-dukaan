@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { DECODE_USER_DEV } from "../../constants/constant"
 import { UPDATE_USER_DEV } from "../../constants/constant"
 import UpdateUserNav from '../../assets/UpdateUserNav';
-import { Link } from 'react-router-dom';
+
 const VendorProfile = () => {
   const token = localStorage.getItem("jwt");
 
@@ -96,18 +96,23 @@ const VendorProfile = () => {
       console.log(error);
     }
   }
-
+  const goOneStepBack = () => {
+    window.location.pathname = "/vendorProducts"
+  }
   return (
     <>
-    <UpdateUserNav />
+      <UpdateUserNav />
       <div className="card mx-auto mt-1">
         <div className="card-body">
           <div className="wrapper mt-3" id='template1'>
             <div className="file-upload">
-            {
-                  file ? 
-                  <img src={file} alt="user" width={150} height={150}/>
-                  : 
+              {
+                file ?
+                  <>
+                    <img src={file} alt="user" width={150} height={150} />
+                    <input type="file" id="userInput" onChange={(e) => setfile(e.target.files[0])} />
+                  </>
+                  :
                   <input type="file" id="userInput" onChange={(e) => setfile(e.target.files[0])} />
               }
             </div>
@@ -217,7 +222,7 @@ const VendorProfile = () => {
         </div>
         <div className="d-inline-flex">
           <button className="btn btn-primary mb-3 w-50 me-3 ms-2" onClick={handleUpdate}>Update Details</button>
-          <Link className="btn btn-success mb-3 w-50 me-2" to="/vendorProducts">Back</Link>
+          <button className="btn btn-success mb-3 w-50 me-3 ms-2" onClick={goOneStepBack}>Back</button>
         </div>
       </div>
     </>

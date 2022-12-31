@@ -1,11 +1,9 @@
-import { useNavigate } from "react-router";
 import "../../styles/NotAuthorized.css"
 
 const NotAuthorized = () => {
-    const navigate = useNavigate();
     const backToLoginPage = () => {
         localStorage.clear("jwt");
-        navigate("/")
+        window.location.href = "/"
       }
     return (
         <>

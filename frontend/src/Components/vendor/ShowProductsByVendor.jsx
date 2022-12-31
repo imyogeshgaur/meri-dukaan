@@ -38,7 +38,7 @@ const ShowProductsByVendor = () => {
 
   const logoutUser = () => {
     localStorage.clear("jwt")
-    navigate("/")
+    window.location.href = "/"
   }
   return (
     <>
