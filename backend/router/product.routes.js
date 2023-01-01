@@ -30,4 +30,23 @@ productRouter.post("/addItem", [uploadProductImage, authorization], async (req, 
     }
 })
 
+productRouter.put("/updateItem", [uploadProductImage, authorization], async (req, res) => {
+    try {
+        const productController = new ProductContoller();
+        await productController.updateProduct(req, res);
+    } catch (error) {
+        console.log("Product Global Error : ", error);
+    }
+})
+
+productRouter.delete("/deleteItem", authorization, async (req, res) => {
+    try {
+        const productController = new ProductContoller();
+        await productController.deleteProduct(req, res);
+    } catch (error) {
+        console.log("Product Global Error : ", error);
+    }
+})
+
+
 export default productRouter;

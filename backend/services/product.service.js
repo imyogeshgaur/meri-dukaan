@@ -46,6 +46,39 @@ class ProductService {
             console.log("Product Service Error : ", error)
         }
     }
+    async updateProduct(body, file) {
+        try {
+            const { productId } = body;
+            const productImage = process.env.PRODUCT_FILE_GET_URL + file;
+            if (file) {
+                const updateProduct = await Product.update({
+                    ...body,
+                    productImage
+                }, {
+                    where: { productId }
+                })
+                return updateProduct;
+            } else {
+                const updateProduct = await Product.update({
+                    ...body
+                }, {
+                    where: { productId }
+                })
+                return updateProduct;
+            }
+        } catch (error) {
+            console.log("Product Service Error : ", error)
+        }
+    }
+    async deleteProduct(body) {
+        try {
+            const {productId} = body;
+            const deleteProduct = await Product.destroy({ where: { productId } });
+            return deleteProduct;
+        } catch (error) {
+            console.log("Product Service Error : ", error)
+        }
+    }
 }
 
 export default ProductService

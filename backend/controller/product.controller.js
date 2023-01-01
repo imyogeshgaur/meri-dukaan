@@ -35,6 +35,35 @@ class ProductContoller {
             return res.status(500).send("Product Controller : Internal Server Error !!!");
         }
     }
+    async updateProduct(req, res) {
+        try {
+            const file = req.file?.filename;
+            const body = req.body;
+            const product = await this.productService.updateProduct(body, file);
+            if (product[0]) {
+                return res.status(200).send({ message: "Product Details Updated !!!" })
+            } else {
+                return res.status(200).send({ message: "User Detail Not Updated !!!" })
+            }
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send("Product Controller : Internal Server Error !!!");
+        }
+    }
+    async deleteProduct(req, res) {
+        try {
+            const body = req.body;
+            const product = await this.productService.deleteProduct(body);
+            if (product[0]) {
+                return res.status(200).send({ message: "Product Deleted !!!" })
+            } else {
+                return res.status(200).send({ message: "User Detail Not Updated !!!" })
+            }
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send("Product Controller : Internal Server Error !!!");
+        }
+    }
 }
 
 export default ProductContoller;
