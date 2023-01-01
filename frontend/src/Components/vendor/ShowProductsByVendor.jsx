@@ -6,7 +6,6 @@ import Card from "../../assets/Card"
 import { FaUserEdit } from "react-icons/fa"
 import {GoDiffAdded} from "react-icons/go"
 import { FiLogOut } from "react-icons/fi"
-import "../../styles/ShowProducts.css"
 
 const ShowProductsByVendor = () => {
   const token = localStorage.getItem("jwt");
@@ -83,6 +82,7 @@ const ShowProductsByVendor = () => {
                   <>
                     <div className="col">
                       <Card
+                        productId={val.productId}
                         productImage={val.productImage}
                         productPrice={val.productPrice}
                         productName={val.productName}

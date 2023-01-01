@@ -3,6 +3,7 @@ import { MdAddCircleOutline, MdOutlineRemoveCircleOutline, MdDeleteForever } fro
 import { FaEdit } from "react-icons/fa";
 import { useLocation } from "react-router"
 import "../styles/Card.css"
+import { Link } from "react-router-dom";
 
 const Card = (props) => {
   const [counter, setcounter] = useState(0);
@@ -52,8 +53,8 @@ const Card = (props) => {
                 ""
                 :
                 <div className="d-inline-flex mb-3">
-                  <button className="btn btn-warning me-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><FaEdit color="white" size={21} /></button>
-                  <button className="btn btn-danger"><MdDeleteForever color="white" size={21} /></button>
+                  <a className="btn btn-warning me-1" href={`/updateProduct/${props.productId}`}><FaEdit color="white" size={21} /></a>
+                  <a className="btn btn-danger" href={`/deleteProduct/${props.productId}`}><MdDeleteForever color="white" size={21} /></a>
                 </div>
             }
           </div>
@@ -77,39 +78,6 @@ const Card = (props) => {
           </div>
         </div>
       </div >
-      {/* Modal */}
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Edit Details</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="" value={props.productName}/>
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="" value={props.productPrice}/>
-                </div>
-              </div>
-              <div class="row mt-4">
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="" value={props.productQuantity}/>
-                </div>
-                <div class="col">
-                  <input type="file" class="form-control" placeholder="" value={props.productimage}/>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Update</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   )
 }

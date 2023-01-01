@@ -97,7 +97,7 @@ const VendorProfile = () => {
     }
   }
   const goOneStepBack = () => {
-    window.location.pathname = "/vendorProducts"
+    window.location.href = "vendorProducts"
   }
   return (
     <>

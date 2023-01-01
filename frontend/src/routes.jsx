@@ -1,4 +1,6 @@
 import { lazy } from "react";
+import DeleteProduct from "./Components/vendor/DeleteProduct";
+import UpdateProduct from "./Components/vendor/UpdateProduct";
 
 //? Common Routes
 const Signin = lazy(() => import('./Components/common/Signin'));
@@ -34,6 +36,8 @@ const routes = [
     { path: "/addProduct", element: <AddProduct /> },
     { path: "/vendorProducts", element: <ShowProductsByVendor /> },
     { path: "/allProducts", element: <AllProducts />},
+    { path: "/updateProduct/:id", element: <UpdateProduct />},
+    { path: "/deleteProduct/:id", element: <DeleteProduct />},
 
     //! User Routes
     { path: "/allUsers", element: <AllUsers /> },

@@ -6,7 +6,6 @@ import Card from "../../assets/Card"
 import { FaUserEdit } from "react-icons/fa"
 import { BsFillCartFill } from "react-icons/bs"
 import { FiLogOut } from "react-icons/fi"
-import "../../styles/ShowProducts.css"
 
 const ShowProducts = () => {
   const token = localStorage.getItem("jwt");
