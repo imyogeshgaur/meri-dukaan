@@ -70,9 +70,8 @@ class ProductService {
             console.log("Product Service Error : ", error)
         }
     }
-    async deleteProduct(body) {
+    async deleteProduct(productId) {
         try {
-            const {productId} = body;
             const deleteProduct = await Product.destroy({ where: { productId } });
             return deleteProduct;
         } catch (error) {

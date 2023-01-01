@@ -52,12 +52,12 @@ class ProductContoller {
     }
     async deleteProduct(req, res) {
         try {
-            const body = req.body;
-            const product = await this.productService.deleteProduct(body);
-            if (product[0]) {
+            const productId = req.headers.productid;
+            const product = await this.productService.deleteProduct(productId);
+            if (product) {
                 return res.status(200).send({ message: "Product Deleted !!!" })
             } else {
-                return res.status(200).send({ message: "User Detail Not Updated !!!" })
+                return res.status(200).send({ message: "User Detail Not Deleted !!!" })
             }
         } catch (error) {
             console.log(error);
