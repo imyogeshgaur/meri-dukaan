@@ -78,18 +78,7 @@ const UserProfile = () => {
       const data = await response.data;
       if (data.message === "User Detail Updated !!!") {
         alert(data.message);
-        setuserName("");
-        setfirstName("");
-        setmiddleName("");
-        setlastName("");
-        setphone("");
-        setemail("");
-        setaddressLine1("");
-        setaddressLine2("");
-        setstate("");
-        setcity("");
-        setzip("");
-        setfile("");
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

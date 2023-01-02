@@ -2,65 +2,65 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import UpdateUserNav from '../../assets/UpdateUserNav'
-import { DELETE_PRODUCT_DEV, SHOW_VENDOR_PRODUCT_DEV } from '../../constants/constant'
+import { DELETE_PRODUCT_DEV, GET_A_PRODUCT_DEV } from '../../constants/constant'
 import "../../styles/UpdateProduct.css"
 
 const DeleteProduct = () => {
   const token = localStorage.getItem("jwt")
-  const [Data, setData] = useState([])
-  const params = useParams();
+  const [name, setName] = useState("")
+  const { id } = useParams();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!token) {
       navigate("/")
     } else {
-      axios.get(SHOW_VENDOR_PRODUCT_DEV, {
+      axios.get(GET_A_PRODUCT_DEV+id, {
         headers: {
           'authorization': token
         }
       }).then(res => {
-        setData(res.data.filter(prod => prod.productId === params.id))
+        setName(res.data.productName)
       })
     }
   }, [])
 
-const deleteProduct = async()=>{
+  const deleteProduct = async () => {
     try {
-      const res = await axios.delete(DELETE_PRODUCT_DEV,{
+      // const res = await axios({
+      //   baseURL:DELETE_PRODUCT_DEV,
+      //   method:'DELETE',
+      //   headers:{
+      //     'authorization': token
+      //   },
+      //   data:id
+      // })
+      const res = await axios.delete(DELETE_PRODUCT_DEV+id,{
         headers:{
-          'authorization': token,
-          'productid':params.id
-        }
+          'authorization': token
+        },
       })
       const data = await res.data;
-      if(data.message){
+      if (data.message) {
         alert(data.message)
         window.history.back();
       }
     } catch (error) {
       console.log(error)
     }
-}
-const goOneStepBack = () => {
-  window.history.back();
-}
+  }
+  const goOneStepBack = () => {
+    window.history.back();
+  }
   return (
     <>
       <UpdateUserNav />
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Delete Product</h5>
-          {
-            Data.map(val => {
-              return (
-                <div className="mb-3">
-                  <label className="form-label text-light">Product Name</label>
-                  <input type="email" className="form-control" id="formGroupExampleInput" value={val.productName} onChange={(e) => { }}/>
-                </div>
-              )
-            })
-          }
+          <div className="mb-3">
+            <label className="form-label text-light">Product Name</label>
+            <input type="email" className="form-control" id="formGroupExampleInput" value={name} onChange={(e) => { }} />
+          </div>
         </div>
         <div className="d-inline-flex mb-2">
           <button className="btn btn-primary w-50 mx-2" onClick={deleteProduct}>Delete Product</button>

@@ -77,11 +77,11 @@ const UpdateProduct = () => {
               value={productName} onChange={(e) => setProductName(e.target.value)} />
           </div>
           <div className="mb-3">
-            <label className="form-label text-light">Product Price</label>
+            <label className="form-label text-light">Product Price (in USD)</label>
             <input type="text" className="form-control" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
           </div>
           <div className="mb-3">
-            <label className="form-label text-light">Product Quantity</label>
+            <label className="form-label text-light">Product Quantity (in Kg)</label>
             <input type="text" className="form-control" value={productQuantity} onChange={(e) => setProductQuantity(e.target.value)} />
           </div>
           <div className="mb-3 text-center">
