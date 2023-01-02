@@ -18,7 +18,6 @@ const Card = (props) => {
       setcounter(counter + 1)
 
       //Todo : Add Items in localStorage
-
       document.getElementById("removeButton").classList.remove("disabled")
     }
   }
@@ -53,7 +52,6 @@ const Card = (props) => {
                 ""
                 :
                 <div className="d-inline-flex mb-3">
-                  //todo : Adding the get api for a single product via product id
                   <a className="btn btn-warning me-1" href={`/updateProduct/${props.productId}`}><FaEdit color="white" size={21} /></a>
                   <a className="btn btn-danger" href={`/deleteProduct/${props.productId}`}><MdDeleteForever color="white" size={21} /></a>
                 </div>

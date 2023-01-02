@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import UpdateUserNav from '../../assets/UpdateUserNav'
-import { DELETE_PRODUCT, SHOW_VENDOR_PRODUCT_DEV } from '../../constants/constant'
+import { DELETE_PRODUCT_DEV, SHOW_VENDOR_PRODUCT_DEV } from '../../constants/constant'
 import "../../styles/UpdateProduct.css"
 
 const DeleteProduct = () => {
@@ -27,7 +27,7 @@ const DeleteProduct = () => {
 
 const deleteProduct = async()=>{
     try {
-      const res = await axios.delete(DELETE_PRODUCT,{
+      const res = await axios.delete(DELETE_PRODUCT_DEV,{
         headers:{
           'authorization': token,
           'productid':params.id

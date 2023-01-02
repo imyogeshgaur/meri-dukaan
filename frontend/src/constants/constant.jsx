@@ -9,4 +9,6 @@ export const ADD_PRODUCT_DEV = `http://localhost:4000/product/addItem`
 export const SHOW_PRODUCTS_DEV = `http://localhost:4000/product/list`
 export const UPDATE_USER_DEV = `http://localhost:4000/user/update`
 export const SHOW_VENDOR_PRODUCT_DEV = `http://localhost:4000/product/vendorProduct`
-export const DELETE_PRODUCT = `http://localhost:4000/product/deleteItem`
+export const UPDATE_PRODUCT_DEV = `http://localhost:4000/product/updateItem`
+export const DELETE_PRODUCT_DEV = `http://localhost:4000/product/deleteItem`
+export const GET_A_PRODUCT_DEV = `http://localhost:4000/product/`
