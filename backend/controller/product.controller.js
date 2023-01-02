@@ -35,6 +35,20 @@ class ProductContoller {
             return res.status(500).send("Product Controller : Internal Server Error !!!");
         }
     }
+    async getAProduct(req, res) {
+        try {
+            const id = req.params.id;
+            const product = await this.productService.getAProduct(id);
+            if (product) {
+                return res.status(200).send(product)
+            } else {
+                return res.status(401).send({ messasge: "No Product Found !!!" })
+            }
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send("Product Controller : Internal Server Error !!!");
+        }
+    }
     async updateProduct(req, res) {
         try {
             const file = req.file?.filename;

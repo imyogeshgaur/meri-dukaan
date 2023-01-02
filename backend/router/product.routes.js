@@ -20,6 +20,14 @@ productRouter.get("/vendorProduct", authorization, async (req, res) => {
         console.log("Product Global Error : ", error);
     }
 })
+productRouter.get("/:id", authorization, async (req, res) => {
+    try {
+        const productController = new ProductContoller();
+        await productController.getAProduct(req, res);
+    } catch (error) {
+        console.log("Product Global Error : ", error);
+    }
+})
 
 productRouter.post("/addItem", [uploadProductImage, authorization], async (req, res) => {
     try {

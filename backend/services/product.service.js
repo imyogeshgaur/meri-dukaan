@@ -46,6 +46,14 @@ class ProductService {
             console.log("Product Service Error : ", error)
         }
     }
+    async getAProduct(productId) {
+        try {
+            const product = await Product.findOne({ where: { productId } })
+            return product;
+        } catch (error) {
+            console.log("Product Service Error : ", error)
+        }
+    }
     async updateProduct(body, file) {
         try {
             const { productId } = body;
