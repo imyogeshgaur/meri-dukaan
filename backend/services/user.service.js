@@ -41,9 +41,10 @@ class UserService {
             console.log("User Service Error : ", error)
         }
     }
-    async deleteUser() {
+    async deleteUser(userId) {
         try {
-
+            const deleteUser = await Product.destroy({ where: { userId } });
+            return deleteUser;
         } catch (error) {
             console.log("User Service Error : ", error)
         }

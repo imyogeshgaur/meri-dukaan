@@ -66,8 +66,8 @@ class ProductContoller {
     }
     async deleteProduct(req, res) {
         try {
-            const productId = req.headers.productid;
-            const product = await this.productService.deleteProduct(productId);
+            const id = req.params.id;
+            const product = await this.productService.deleteProduct(id);
             if (product) {
                 return res.status(200).send({ message: "Product Deleted !!!" })
             } else {

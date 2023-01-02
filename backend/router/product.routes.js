@@ -47,7 +47,7 @@ productRouter.put("/updateItem", [uploadProductImage, authorization], async (req
     }
 })
 
-productRouter.delete("/deleteItem", authorization, async (req, res) => {
+productRouter.delete("/deleteItem/:id",authorization, async (req, res) => {
     try {
         const productController = new ProductContoller();
         await productController.deleteProduct(req, res);
