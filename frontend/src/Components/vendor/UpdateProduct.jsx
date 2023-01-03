@@ -14,6 +14,7 @@ const UpdateProduct = () => {
   const [productPrice, setProductPrice] = useState([])
   const navigate = useNavigate();
   const { id } = useParams();
+  
   useEffect(() => {
     if (!token) {
       navigate("/")
@@ -70,7 +71,6 @@ const UpdateProduct = () => {
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Update Product Details </h5>
-
           <div className="mb-3">
             <label className="form-label text-light">Product Name</label>
             <input type="text" className="form-control" id="formGroupExampleInput"

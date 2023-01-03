@@ -1,4 +1,6 @@
 import { lazy } from "react";
+import DeleteUser from "./Components/admin/DeleteUser";
+import UpdateUser from "./Components/admin/UpdateUser";
 import DeleteProduct from "./Components/vendor/DeleteProduct";
 import UpdateProduct from "./Components/vendor/UpdateProduct";
 
@@ -43,7 +45,9 @@ const routes = [
     { path: "/allUsers", element: <AllUsers /> },
     { path: "/user", element: <UserProfile /> },
     { path: "/vendor", element: <VendorProfile /> },
-    { path: "/admin", element: <AdminProfile /> }
+    { path: "/admin", element: <AdminProfile /> },
+    { path: "/updateUser/:id", element: <UpdateUser />},
+    { path: "/deleteUser/:id", element: <DeleteUser />}
 ]
 
 export default routes;

@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 import { SHOW_VENDOR_PRODUCT_DEV } from '../../constants/constant';
-import Card from "../../assets/Card"
 import { FaUserEdit } from "react-icons/fa"
 import {GoDiffAdded} from "react-icons/go"
 import { FiLogOut } from "react-icons/fi"
+import ProductCard from '../../assets/ProductCard';
 
 const ShowProductsByVendor = () => {
   const token = localStorage.getItem("jwt");
@@ -73,7 +73,6 @@ const ShowProductsByVendor = () => {
           </ul>
         </div>
       </nav>
-      <div className="conatiner">
         <div className="row mx-3">
           {
             filteredData.length === 0 ? <h1 className='text-center'>No Item Found !!!</h1> :
@@ -81,7 +80,7 @@ const ShowProductsByVendor = () => {
                 return (
                   <>
                     <div className="col">
-                      <Card
+                      <ProductCard
                         productId={val.productId}
                         productImage={val.productImage}
                         productPrice={val.productPrice}
@@ -93,7 +92,6 @@ const ShowProductsByVendor = () => {
                 )
               })
           }
-        </div>
       </div>
     </>
   )

@@ -5,7 +5,7 @@ import { useLocation } from "react-router"
 import "../styles/Card.css"
 
 
-const Card = (props) => {
+const ProductCard = (props) => {
   const [counter, setcounter] = useState(0);
   const path = useLocation();
 
@@ -34,13 +34,21 @@ const Card = (props) => {
         <img src={props.productImage} className="card-img-top" alt={props.productName} height={210} />
         <div className="card-body">
           <h5 className="card-title text-white fw-bold">{props.productName}</h5>
-          <div className="card-text text-white mb-2">₹ {props.productPrice}</div>
+          <div className="card-text text-white mb-2">
+            {
+              props.productPrice ? ` ₹ ${props.productPrice}` :``
+            }
+          </div>
           {
             path.pathname === "/products" ?
               <></>
               :
               <>
-                <div className="card-text text-white mb-2">{props.productQuantity}kg</div>
+                <div className="card-text text-white mb-2">
+                  {
+                    props.productQuantity ? `${props.productQuantity}kg` :``
+                  }
+                </div>
               </>
           }
           <div className="d-inline-flex">
@@ -74,4 +82,4 @@ const Card = (props) => {
   )
 }
 
-export default Card
+export default ProductCard

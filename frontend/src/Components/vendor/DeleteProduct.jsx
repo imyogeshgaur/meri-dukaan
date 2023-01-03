@@ -26,14 +26,6 @@ const DeleteProduct = () => {
 
   const deleteProduct = async () => {
     try {
-      // const res = await axios({
-      //   baseURL:DELETE_PRODUCT_DEV,
-      //   method:'DELETE',
-      //   headers:{
-      //     'authorization': token
-      //   },
-      //   data:id
-      // })
       const res = await axios.delete(DELETE_PRODUCT_DEV+id,{
         headers:{
           'authorization': token
