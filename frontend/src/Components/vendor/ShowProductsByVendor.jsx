@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { SHOW_VENDOR_PRODUCT_DEV } from '../../constants/constant';
 import { FaUserEdit } from "react-icons/fa"
-import {GoDiffAdded} from "react-icons/go"
+import { GoDiffAdded } from "react-icons/go"
 import { FiLogOut } from "react-icons/fi"
 import ProductCard from '../../assets/ProductCard';
 
@@ -11,10 +11,10 @@ const ShowProductsByVendor = () => {
   const token = localStorage.getItem("jwt");
   const [Data, setData] = useState([])
   const [search, setSearch] = useState("")
-  const navigate = useNavigate();
+
   useEffect(() => {
     if (!token) {
-      navigate("/")
+      window.location.href = "/"
     } else {
       axios.get(SHOW_VENDOR_PRODUCT_DEV, {
         headers: {
@@ -39,6 +39,7 @@ const ShowProductsByVendor = () => {
     localStorage.clear("jwt")
     window.location.href = "/"
   }
+
   return (
     <>
       <nav class="navbar navbar-expand-lg bg-primary">
@@ -59,7 +60,7 @@ const ShowProductsByVendor = () => {
                     <GoDiffAdded size={30} color={"white"} className='mx-2 mt-1' />
                   </Link>
                   <Link to="/vendor">
-                     <FaUserEdit size={37} color={"white"} className='mx-2'/>
+                    <FaUserEdit size={37} color={"white"} className='mx-2' />
                   </Link>
                   <input type="text" className="form-control mx-2" placeholder="Search Here" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
@@ -68,30 +69,30 @@ const ShowProductsByVendor = () => {
           </div>
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <h3 className="text-light" onClick={logoutUser}><FiLogOut /></h3>
+              <h3 className="text-light" onClick={logoutUser}><FiLogOut /></h3>
             </li>
           </ul>
         </div>
       </nav>
-        <div className="row mx-3">
-          {
-            filteredData.length === 0 ? <h1 className='text-center'>No Item Found !!!</h1> :
-              filteredData.map((val) => {
-                return (
-                  <>
-                    <div className="col">
-                      <ProductCard
-                        productId={val.productId}
-                        productImage={val.productImage}
-                        productPrice={val.productPrice}
-                        productName={val.productName}
-                        productQuantity={val.productQuantity}
-                      />
-                    </div>
-                  </>
-                )
-              })
-          }
+      <div className="row mx-3">
+        {
+          filteredData.length === 0 ? <h1 className='text-center'>No Item Found !!!</h1> :
+            filteredData.map((val) => {
+              return (
+                <>
+                  <div className="col">
+                    <ProductCard
+                      productId={val.productId}
+                      productImage={val.productImage}
+                      productPrice={val.productPrice}
+                      productName={val.productName}
+                      productQuantity={val.productQuantity}
+                    />
+                  </div>
+                </>
+              )
+            })
+        }
       </div>
     </>
   )

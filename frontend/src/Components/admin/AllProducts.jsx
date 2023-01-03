@@ -10,9 +10,10 @@ const AllProducts = () => {
   const token = localStorage.getItem("jwt");
   const [Data, setData] = useState([])
   const [search, setSearch] = useState("")
+  
   useEffect(() => {
     if (!token) {
-      navigate("/")
+      window.location.href = "/"
     } else {
       axios.get(SHOW_PRODUCTS_DEV, {
         headers: {
@@ -35,7 +36,7 @@ const AllProducts = () => {
 
   const logoutUser = () => {
     localStorage.clear("jwt")
-    navigate("/")
+    window.location.href = "/"
   }
   return (
     <>

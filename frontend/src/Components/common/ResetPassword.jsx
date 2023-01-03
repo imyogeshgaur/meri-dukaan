@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { useNavigate,useParams } from 'react-router'
+import { useParams } from 'react-router'
 import NavBar from '../../assets/NavBar'
 import axios  from "axios";
 import "../../styles/ResetPassword.css"
@@ -8,21 +8,21 @@ import { RESET_PASS_URL_DEV } from '../../constants/constant';
 const ResetPassword = () => {
   const [password, setPassword] = useState("")
   const [confPass, setConfPass] = useState("")
-  const navigate = useNavigate();
-  const param = useParams()
-  const userId = param.id
+  const {id} = useParams()
+
   const userResetPass = async()=>{
     if(password===confPass){
-      const response = await axios.post(RESET_PASS_URL_DEV +"/"+ userId,{password})
+      const response = await axios.post(RESET_PASS_URL_DEV +"/"+ id,{password})
       const data = await response.data
       if(data){
         alert(data.message)
-        navigate("/")
+        window.location.href = "/"
       }
     }else{
       alert("Password Don't Match !!!")
     }
   }
+  
   return (
     <>
       <NavBar />

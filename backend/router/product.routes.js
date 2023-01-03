@@ -38,7 +38,7 @@ productRouter.post("/addItem", [uploadProductImage, authorization], async (req, 
     }
 })
 
-productRouter.put("/updateItem", [uploadProductImage, authorization], async (req, res) => {
+productRouter.put("/update", [uploadProductImage, authorization], async (req, res) => {
     try {
         const productController = new ProductContoller();
         await productController.updateProduct(req, res);
@@ -47,7 +47,7 @@ productRouter.put("/updateItem", [uploadProductImage, authorization], async (req
     }
 })
 
-productRouter.delete("/deleteItem/:id",authorization, async (req, res) => {
+productRouter.delete("/delete/:id",authorization, async (req, res) => {
     try {
         const productController = new ProductContoller();
         await productController.deleteProduct(req, res);

@@ -22,7 +22,7 @@ userRouter.put("/update", [uploadProfileImage, authorization], async (req, res) 
     }
 })
 
-userRouter.delete("/delete", authorization, async (req, res) => {
+userRouter.delete("/delete/:id", authorization, async (req, res) => {
     try {
         const userController = new UserController();
         await userController.deleteUser(req, res);

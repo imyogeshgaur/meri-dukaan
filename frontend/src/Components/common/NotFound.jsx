@@ -2,9 +2,11 @@ import React from 'react'
 import "../../styles/NotFound.css"
 
 const NotFound = () => {
+
   const goToPreviousPage = () => {
     window.history.back();
   }
+
   return (
     <>
       <div class="card mx-auto">

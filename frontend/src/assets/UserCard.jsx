@@ -1,10 +1,11 @@
 import { useLocation } from "react-router"
 import "../styles/Card.css"
-import { FaEdit } from "react-icons/fa";
-import { MdDeleteForever } from "react-icons/md";
 import defaultImage from "./default.jpg"
+
 const UserCard = (props) => {
+
     const path = useLocation();
+
     return (
         <>
             <div className="card">
@@ -16,12 +17,10 @@ const UserCard = (props) => {
                     <div className="d-inline-flex">
                         {
                             path.pathname === "/products" ?
-                                ""
+                                <>
+                                </>
                                 :
-                                <div className="d-inline-flex mb-3">
-                                    <a className="btn btn-warning me-1" href={`/updateUser/${props.userId}`}><FaEdit color="white" size={21} /></a>
-                                    <a className="btn btn-danger" href={`/deleteUser/${props.userId}`}><MdDeleteForever color="white" size={21} /></a>
-                                </div>
+                                <a className="btn btn-danger" href={`/deleteUser/${props.userId}`}>Delete User</a>
                         }
                     </div>
                 </div>

@@ -1,12 +1,13 @@
-import {FiLogOut} from "react-icons/fi"
-import { useNavigate } from "react-router"
+import { FiLogOut } from "react-icons/fi"
 import "../styles/NavBar.css"
+
 const UpdateUserNav = () => {
-    const navigate = useNavigate();
-    const logoutUser = ()=>{
+
+    const logoutUser = () => {
         localStorage.clear("jwt")
-        navigate("/")
+        window.location.href = "/"
     }
+
     return (
         <>
             <nav class="navbar navbar-expand-lg bg-primary">
@@ -23,7 +24,7 @@ const UpdateUserNav = () => {
                     </div>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <h3 className="text-light" onClick={logoutUser}><FiLogOut/></h3>
+                            <h3 className="text-light" onClick={logoutUser}><FiLogOut /></h3>
                         </li>
                     </ul>
                 </div>

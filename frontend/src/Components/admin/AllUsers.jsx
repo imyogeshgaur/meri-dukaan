@@ -13,7 +13,7 @@ const AllUsers = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/")
+      window.location.href = "/"
     } else {
       axios.get(SHOW_USERS_DEV, {
         headers: {
@@ -36,7 +36,7 @@ const AllUsers = () => {
 
   const logoutUser = () => {
     localStorage.clear("jwt")
-    navigate("/")
+    window.location.href = "/"
   }
   return (
     <>
@@ -79,6 +79,7 @@ const AllUsers = () => {
                   userName={val.userName}
                   role={val.role}
                   userImage={val.userImage}
+                  userId={val.userId}
                 />
               </div>
             )

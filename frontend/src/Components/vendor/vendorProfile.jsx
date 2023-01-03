@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from "axios";
 import "../../styles/UserProfile.css"
-import { useNavigate } from 'react-router';
 import { DECODE_USER_DEV } from "../../constants/constant"
 import { UPDATE_USER_DEV } from "../../constants/constant"
 import UpdateUserNav from '../../assets/UpdateUserNav';
@@ -21,11 +20,10 @@ const VendorProfile = () => {
   const [city, setcity] = useState("")
   const [state, setstate] = useState("")
   const [zip, setzip] = useState("")
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
-      navigate("/")
+      window.location.href = "/"
     } else {
       axios.post(DECODE_USER_DEV, "", {
         headers: {
@@ -33,7 +31,7 @@ const VendorProfile = () => {
         }
       }).then(res => {
         if (res.data.role === "user") {
-          navigate("/unauthorized")
+          window.location.href = "/unauthorized"
         } else {
           setuserName(res.data.userName);
           setfirstName(res.data.firstName);
@@ -85,9 +83,11 @@ const VendorProfile = () => {
       console.log(error);
     }
   }
+
   const goOneStepBack = () => {
     window.location.href = "vendorProducts"
   }
+
   return (
     <>
       <UpdateUserNav />

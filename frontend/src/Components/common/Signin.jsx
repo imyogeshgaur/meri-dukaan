@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import NavBar from '../../assets/NavBar'
 import axios from "axios"
 import { DECODE_USER_DEV, SIGIN_URL_DEV } from '../../constants/constant'
 import "../../styles/Signin.css"
 
-
 const Signin = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const navigate = useNavigate();
   const token = localStorage.getItem("jwt");
 
   useEffect(() => {
@@ -20,10 +18,12 @@ const Signin = () => {
         }
       })
         .then(res => {
-          if (res.data.role === "user") {
-            navigate("/products")
+          if (res.data.role === "vendor") {
+            window.location.href = "/vendorProducts"
+          } else if (res.data.role == "user") {
+            window.location.href = "/products"
           } else {
-            navigate("/vendorProducts")
+            window.location.href = "/allProducts"
           }
         })
     }
@@ -49,11 +49,11 @@ const Signin = () => {
         const nextData = await responseNext.data;
         const role = nextData.role;
         if (role === "vendor") {
-          navigate("/vendorProducts")
+          window.location.href = "/vendorProducts"
         } else if (role == "user") {
-          navigate("/products")
+          window.location.href = "/products"
         } else {
-          navigate("/allProducts")
+          window.location.href = "/allProducts"
         }
       }
     } catch (error) {

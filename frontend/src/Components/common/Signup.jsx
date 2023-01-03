@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from "axios";
 import NavBar from '../../assets/NavBar'
 import "../../styles/Signup.css"
@@ -10,7 +10,6 @@ const Signup = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [role, setRole] = useState("")
-  const navigate = useNavigate();
   const userSignUp = async () => {
     try {
       const response = await axios.post(SIGNUP_URL_DEV, {
@@ -26,7 +25,7 @@ const Signup = () => {
         setPassword("")
         setRole("")
         setEmail("")
-        navigate("/")
+        window.location.href = "/"
       }
     } catch (error) {
       console.log(error)
@@ -39,21 +38,21 @@ const Signup = () => {
         <div className="card-body">
           <h5 className="card-title text-light text-center">Sign Up Here</h5>
           <div className="mb-3">
-            <label  className="form-label text-light">Enter User Name</label>
-            <input type="email" className="form-control" id="formGroupExampleInput" placeholder="Enter your Name" value={userName} onChange={(e)=>setUserName(e.target.value)} />
+            <label className="form-label text-light">Enter User Name</label>
+            <input type="email" className="form-control" id="formGroupExampleInput" placeholder="Enter your Name" value={userName} onChange={(e) => setUserName(e.target.value)} />
           </div>
           <div className="mb-3">
-            <label  className="form-label text-light">Enter Email</label>
-            <input type="email" className="form-control" placeholder="Enter your Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+            <label className="form-label text-light">Enter Email</label>
+            <input type="email" className="form-control" placeholder="Enter your Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="mb-3">
-            <label  className="form-label text-light">Enter Password</label>
-            <input type="password" className="form-control" placeholder="Enter your Password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+            <label className="form-label text-light">Enter Password</label>
+            <input type="password" className="form-control" placeholder="Enter your Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div className="mb-3">
             <label className="form-label text-light">Why are You Here ?</label>
             <select className="form-select" aria-label="Default select example"
-            value={role} onChange={(e)=>setRole(e.target.value)}
+              value={role} onChange={(e) => setRole(e.target.value)}
             >
               <option></option>
               <option value="user">To purchase Products</option>

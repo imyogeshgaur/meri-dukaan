@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate,Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { SHOW_PRODUCTS_DEV } from '../../constants/constant';
 import { FaUserEdit } from "react-icons/fa"
@@ -11,10 +11,10 @@ const ShowProducts = () => {
   const token = localStorage.getItem("jwt");
   const [Data, setData] = useState([])
   const [search, setSearch] = useState("")
-  const navigate = useNavigate();
+
   useEffect(() => {
     if (!token) {
-      navigate("/")
+      window.location.href = "/"
     } else {
       axios.get(SHOW_PRODUCTS_DEV, {
         headers: {
@@ -37,7 +37,7 @@ const ShowProducts = () => {
 
   const logoutUser = () => {
     localStorage.clear("jwt")
-    navigate("/")
+    window.location.href = "/"
   }
   return (
     <>
@@ -57,7 +57,7 @@ const ShowProducts = () => {
                 <div className="d-inline-flex">
                   <BsFillCartFill size={49} color={"white"} className='mx-2' />
                   <Link to="/user">
-                      <FaUserEdit size={37} color={"white"} className='mx-2 mt-1'/>
+                    <FaUserEdit size={37} color={"white"} className='mx-2 mt-1' />
                   </Link>
                   <input type="text" className="form-control mx-2" placeholder="Search Here" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
@@ -66,30 +66,30 @@ const ShowProducts = () => {
           </div>
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <h3 className="text-light" onClick={logoutUser}><FiLogOut /></h3>
+              <h3 className="text-light" onClick={logoutUser}><FiLogOut /></h3>
             </li>
           </ul>
         </div>
       </nav>
-        <div className="row mx-3">
-          {
-            filteredData.length === 0 ? <h1 className='text-center'>No Item Found !!!</h1> :
-              filteredData.map((val) => {
-                return (
-                  <>
-                    <div className="col">
-                      <ProductCard
-                        productImage={val.productImage}
-                        productPrice={val.productPrice}
-                        productName={val.productName}
-                        productQuantity={val.productQuantity}
-                      />
-                    </div>
-                  </>
-                )
-              })
-          }
-        </div>
+      <div className="row mx-3">
+        {
+          filteredData.length === 0 ? <h1 className='text-center'>No Item Found !!!</h1> :
+            filteredData.map((val) => {
+              return (
+                <>
+                  <div className="col">
+                    <ProductCard
+                      productImage={val.productImage}
+                      productPrice={val.productPrice}
+                      productName={val.productName}
+                      productQuantity={val.productQuantity}
+                    />
+                  </div>
+                </>
+              )
+            })
+        }
+      </div>
     </>
   )
 }

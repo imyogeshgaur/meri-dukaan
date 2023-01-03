@@ -24,7 +24,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/")
+      window.location.href = "/"
     } else {
       axios.post(DECODE_USER_DEV, "", {
         headers: {
@@ -32,7 +32,7 @@ const UserProfile = () => {
         }
       }).then(res => {
         if (res.data.role === "vendor") {
-          navigate("/unauthorized")
+          window.location.href = "/unauthorized"
         } else {
           setuserName(res.data.userName);
           setfirstName(res.data.firstName);
@@ -86,7 +86,7 @@ const UserProfile = () => {
   }
 
   const goOneStepBack = () => {
-    window.location.pathname = "products"
+    window.location.href = "products"
   }
   return (
     <>

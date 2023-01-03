@@ -9,12 +9,12 @@ const DeleteProduct = () => {
   const token = localStorage.getItem("jwt")
   const [name, setName] = useState("")
   const { id } = useParams();
-  const navigate = useNavigate();
+
   useEffect(() => {
     if (!token) {
-      navigate("/")
+      window.location.href = "/"
     } else {
-      axios.get(GET_A_PRODUCT_DEV+id, {
+      axios.get(GET_A_PRODUCT_DEV + id, {
         headers: {
           'authorization': token
         }
@@ -26,8 +26,8 @@ const DeleteProduct = () => {
 
   const deleteProduct = async () => {
     try {
-      const res = await axios.delete(DELETE_PRODUCT_DEV+id,{
-        headers:{
+      const res = await axios.delete(DELETE_PRODUCT_DEV + id, {
+        headers: {
           'authorization': token
         },
       })
@@ -40,9 +40,11 @@ const DeleteProduct = () => {
       console.log(error)
     }
   }
+
   const goOneStepBack = () => {
     window.history.back();
   }
+  
   return (
     <>
       <UpdateUserNav />

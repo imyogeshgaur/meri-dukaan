@@ -1,10 +1,12 @@
 import "../../styles/NotAuthorized.css"
 
 const NotAuthorized = () => {
+
     const backToLoginPage = () => {
         localStorage.clear("jwt");
         window.location.href = "/"
-      }
+    }
+
     return (
         <>
             <div class="card mx-auto">

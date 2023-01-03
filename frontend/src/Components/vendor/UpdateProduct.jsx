@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import axios from 'axios';
 import "../../styles/UpdateProduct.css"
 import { GET_A_PRODUCT_DEV, UPDATE_PRODUCT_DEV } from '../../constants/constant';
@@ -12,12 +12,11 @@ const UpdateProduct = () => {
   const [productName, setProductName] = useState([])
   const [productQuantity, setProductQuantity] = useState([])
   const [productPrice, setProductPrice] = useState([])
-  const navigate = useNavigate();
   const { id } = useParams();
   
   useEffect(() => {
     if (!token) {
-      navigate("/")
+      window.location.href = "/"
     } else {
       axios.get(GET_A_PRODUCT_DEV + id, {
         headers: {

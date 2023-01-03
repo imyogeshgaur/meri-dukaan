@@ -14,6 +14,7 @@ class UserController {
             return res.status(500).send(error);
         }
     }
+
     async updateUser(req, res) {
         try {
             const file = req.file?.filename;
@@ -30,9 +31,16 @@ class UserController {
             return res.status(500).send("User Controller : Internal Server Error !!!");
         }
     }
+    
     async deleteUser(req, res) {
         try {
-            
+            const id = req.params.id;
+            const user = this.userService.deleteUser(id);
+            if (user) {
+                return res.status(200).send({ message: "User Deleted !!!" })
+            } else {
+                return res.status(200).send({ message: "User Not Deleted !!!" })
+            }
         } catch (error) {
             console.log(error)
             return res.status(500).send("User Controller : Internal Server Error !!!");

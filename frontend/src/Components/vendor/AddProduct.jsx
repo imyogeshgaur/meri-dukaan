@@ -12,10 +12,11 @@ const AddProduct = () => {
   const [productName, setProductName] = useState("")
   const [productQuantity, setProductQuantity] = useState("")
   const [productPrice, setProductPrice] = useState("")
-  const navigate = useNavigate();
+
+
   useEffect(() => {
     if (!token) {
-      navigate("/")
+      window.location.href = "/"
     } else {
       axios.post(DECODE_USER_DEV, "", {
         headers: {
@@ -23,7 +24,7 @@ const AddProduct = () => {
         }
       }).then(res => {
         if (res.data.role === "user") {
-          navigate("/unauthorized")
+          window.location.href = "/unauthorized"
         } else {
           setData(res.data)
         }
