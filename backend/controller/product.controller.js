@@ -57,7 +57,7 @@ class ProductContoller {
             if (product[0]) {
                 return res.status(200).send({ message: "Product Details Updated !!!" })
             } else {
-                return res.status(200).send({ message: "User Detail Not Updated !!!" })
+                return res.status(200).send({ message: "Product Details Not Updated !!!" })
             }
         } catch (error) {
             console.log(error);
@@ -71,7 +71,7 @@ class ProductContoller {
             if (product) {
                 return res.status(200).send({ message: "Product Deleted !!!" })
             } else {
-                return res.status(200).send({ message: "User Detail Not Deleted !!!" })
+                return res.status(200).send({ message: "Product Detail Not Deleted !!!" })
             }
         } catch (error) {
             console.log(error);

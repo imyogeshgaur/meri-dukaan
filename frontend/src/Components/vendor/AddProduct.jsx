@@ -12,7 +12,7 @@ const AddProduct = () => {
   const [productName, setProductName] = useState("")
   const [productQuantity, setProductQuantity] = useState("")
   const [productPrice, setProductPrice] = useState("")
-
+  const [alert, setalert] = useState(null)
 
   useEffect(() => {
     if (!token) {
@@ -57,16 +57,27 @@ const AddProduct = () => {
         })
         const data = await response.data;
         if (data) {
-          alert("Product Added Sucessfully !!!")
+          setalert({
+            msg: "Product Added Sucessfully !!!",
+            type: "success"
+          })
+          setTimeout(() => {
+            setalert(null)
+          }, 1000);
           setProductName("")
           setProductPrice("")
           setProductQuantity("")
           setFile("")
-        } else {
-          alert(data);
         }
       } catch (error) {
         console.log(error)
+        setalert({
+          msg: "Network Error !!!",
+          type: "danger"
+        })
+        setTimeout(() => {
+          setalert(null)
+        }, 1000);
       }
     }
   }

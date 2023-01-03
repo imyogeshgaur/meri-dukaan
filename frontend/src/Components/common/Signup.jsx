@@ -4,36 +4,60 @@ import axios from "axios";
 import NavBar from '../../assets/NavBar'
 import "../../styles/Signup.css"
 import { SIGNUP_URL_DEV } from '../../constants/constant';
+import Alert from '../../assets/Alert';
 
 const Signup = () => {
   const [userName, setUserName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [role, setRole] = useState("")
+  const [alert, setalert] = useState(null);
+
   const userSignUp = async () => {
     try {
-      const response = await axios.post(SIGNUP_URL_DEV, {
-        userName,
-        email,
-        password,
-        role
-      })
-      const data = await response.data;
-      if (data) {
-        alert("User Created !!!")
-        setUserName("")
-        setPassword("")
-        setRole("")
-        setEmail("")
-        window.location.href = "/"
+      if (!email || !password || !userName || !role) {
+        setalert({
+          msg: "Please Fill All Data !!!",
+          type: "danger"
+        })
+        setTimeout(() => {
+          setalert(null)
+        }, 1000);
+      } else {
+        const response = await axios.post(SIGNUP_URL_DEV, {
+          userName,
+          email,
+          password,
+          role
+        })
+        const data = await response.data;
+        if (data) {
+          setalert({
+            msg: "User Created !!!",
+            type: "success"
+          })
+          setUserName("")
+          setPassword("")
+          setRole("")
+          setEmail("")
+          window.location.href = "/"
+        }
       }
     } catch (error) {
       console.log(error)
+      setalert({
+        msg: "Network Error !!!",
+        type: "danger"
+      })
+      setTimeout(() => {
+        setalert(null)
+      }, 1000);
     }
   }
   return (
     <>
       <NavBar />
+      <Alert alert={alert} />
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Sign Up Here</h5>

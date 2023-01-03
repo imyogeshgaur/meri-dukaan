@@ -1,24 +1,57 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import NavBar from '../../assets/NavBar'
 import { FORGET_PASS_URL_DEV } from '../../constants/constant'
 import axios from "axios"
 import "../../styles/ForgetPassword.css"
+import Alert from '../../assets/Alert'
 
 const ForgetPassword = () => {
-
+  const [alert, setalert] = useState(null)
   const [email, setEmail] = useState("");
 
-  const userForgetPass = async()=>{
-      try {
-          const response = await axios.post(FORGET_PASS_URL_DEV,{email});
-          const data = await response.data;
-          if(data){
-            alert(data.message)
-            setEmail("")
-          }
-      } catch (error) {
-        console.log(error)
+  const userForgetPass = async () => {
+    try {
+      if (!email) {
+        setalert({
+          msg: "Please Fill All Data !!!",
+          type: "danger"
+        })
+        setTimeout(() => {
+          setalert(null)
+        }, 1000);
+      } else {
+        const response = await axios.post(FORGET_PASS_URL_DEV, { email });
+        const data = await response.data;
+        if (data.message === "User Not Exist !!!") {
+          setalert({
+            msg: data.message,
+            type: "danger"
+          })
+          setTimeout(() => {
+            setalert(null)
+          }, 1000);
+          setEmail("")
+        } else {
+          setalert({
+            msg: data.message,
+            type: "success"
+          })
+          setTimeout(() => {
+            setalert(null)
+          }, 1000);
+          setEmail("")
+        }
       }
+    } catch (error) {
+      console.log(error)
+      setalert({
+        msg: "Network Error !!!",
+        type: "danger"
+      })
+      setTimeout(() => {
+        setalert(null)
+      }, 1000);
+    }
   }
 
   const goToPreviousPage = () => {
@@ -27,6 +60,7 @@ const ForgetPassword = () => {
   return (
     <>
       <NavBar />
+      <Alert alert={alert} />
       <div class="card mx-auto">
         <div class="card-body">
           <h5 class="card-title text-light text-center">Registered Email</h5>

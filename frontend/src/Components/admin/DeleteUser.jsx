@@ -4,17 +4,18 @@ import UpdateUserNav from '../../assets/UpdateUserNav'
 import axios from 'axios';
 import { DELETE_USER_DEV, SHOW_USERS_DEV } from '../../constants/constant';
 import "../../styles/UpdateProduct.css"
-import { FaWindowRestore } from 'react-icons/fa';
+import Alert from '../../assets/Alert';
 
 const DeleteUser = () => {
     const token = localStorage.getItem("jwt")
     const [Data, setData] = useState([])
     const { id } = useParams();
     const navigate = useNavigate();
+    const [alert, setalert] = useState(null)
 
     useEffect(() => {
         if (!token) {
-            navigate("/")
+            window.location.href = "/"
         } else {
             axios.get(SHOW_USERS_DEV, {
                 headers: {
@@ -35,13 +36,26 @@ const DeleteUser = () => {
             })
             const data = await res.data;
             if (data.message) {
-                alert(data.message)
+                setalert({
+                    msg: data.message,
+                    type: "success"
+                })
+                setTimeout(() => {
+                    setalert(null)
+                    window.history.back();
+                }, 1000);
                 window.history.back()
             } else {
                 console.log(data)
             }
         } catch (error) {
-            console.log(error)
+            setalert({
+                msg: "Network Error !!!",
+                type: "danger"
+            })
+            setTimeout(() => {
+                setalert(null)
+            }, 1000);
         }
     }
 
@@ -52,6 +66,7 @@ const DeleteUser = () => {
     return (
         <>
             <UpdateUserNav />
+            <Alert alert={alert}/>
             <div className="card mx-auto">
                 <div className="card-body">
                     <h5 className="card-title text-light text-center">Delete User</h5>

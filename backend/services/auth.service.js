@@ -86,7 +86,7 @@ class AuthService {
                     await passwordResetMail(email, subject, textOfMail);
                 }
             } else {
-                return "User Not Exist";
+                return "User Not Exist !!!";
             }
 
         } catch (error) {

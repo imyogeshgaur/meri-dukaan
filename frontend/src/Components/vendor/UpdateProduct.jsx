@@ -4,6 +4,7 @@ import axios from 'axios';
 import "../../styles/UpdateProduct.css"
 import { GET_A_PRODUCT_DEV, UPDATE_PRODUCT_DEV } from '../../constants/constant';
 import UpdateUserNav from '../../assets/UpdateUserNav';
+import Alert from '../../assets/Alert';
 
 const UpdateProduct = () => {
   const token = localStorage.getItem("jwt")
@@ -13,7 +14,8 @@ const UpdateProduct = () => {
   const [productQuantity, setProductQuantity] = useState([])
   const [productPrice, setProductPrice] = useState([])
   const { id } = useParams();
-  
+  const [alert, setalert] = useState(null)
+
   useEffect(() => {
     if (!token) {
       window.location.href = "/"
@@ -51,14 +53,34 @@ const UpdateProduct = () => {
         data: formData
       })
       const data = await res.data;
-      if (data.message) {
-        alert(data.message)
+      if (data.message === "Product Details Updated !!!") {
+        setalert({
+          msg: data.message,
+          type: "success"
+        })
+        setTimeout(() => {
+          setalert(null)
+        }, 1000);
         window.location.reload()
       } else {
-        console.log(data)
+        setalert({
+          msg: data.message,
+          type: "danger"
+        })
+        setTimeout(() => {
+          setalert(null)
+        }, 1000);
+        window.location.reload()
       }
     } catch (error) {
       console.log(error)
+      setalert({
+        msg: "Network Error !!!",
+        type: "danger"
+      })
+      setTimeout(() => {
+        setalert(null)
+      }, 1000);
     }
   }
   const goOneStepBack = () => {
@@ -67,6 +89,7 @@ const UpdateProduct = () => {
   return (
     <>
       <UpdateUserNav />
+      <Alert alert={alert} />
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Update Product Details </h5>
