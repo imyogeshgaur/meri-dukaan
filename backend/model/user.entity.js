@@ -62,7 +62,7 @@ const User = sequelize.define('User',{
         type:DataTypes.STRING,
     },
     zip:{
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
     }
 })
 

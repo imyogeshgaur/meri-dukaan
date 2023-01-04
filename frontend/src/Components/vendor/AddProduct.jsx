@@ -1,6 +1,6 @@
 import "../../styles/AddProduct.css"
 import NavBar from '../../assets/NavBar'
-import { Link, useNavigate } from 'react-router-dom'
+import Alert from '../../assets/Alert';
 import { useEffect, useState } from 'react'
 import axios from "axios";
 import { ADD_PRODUCT_DEV, DECODE_USER_DEV } from '../../constants/constant'
@@ -35,9 +35,21 @@ const AddProduct = () => {
   const addProduct = async () => {
     const regx = /^\d+$/
     if (!productName || !productPrice || !productQuantity || !file) {
-      alert("Please Enter all Fields !!!");
+      setalert({
+        msg: "Please Enter all Fields !!!",
+        type: "danger"
+      })
+      setTimeout(() => {
+        setalert(null)
+      }, 1000);
     } else if ((!regx.test(productPrice)) || !regx.test(productQuantity)) {
-      alert("Product Price and Quantity should be an Integer !!!")
+      setalert({
+        msg: "Product Price and Quantity should be an Integer !!!",
+        type: "danger"
+      })
+      setTimeout(() => {
+        setalert(null)
+      }, 1000);
     }
     else {
       try {
@@ -77,6 +89,7 @@ const AddProduct = () => {
         })
         setTimeout(() => {
           setalert(null)
+          window.location.href = "vendorProducts"
         }, 1000);
       }
     }
@@ -87,6 +100,7 @@ const AddProduct = () => {
   return (
     <>
       <NavBar userName={Data.userName ? Data.userName : Data.firstName} />
+      <Alert alert={alert}/>
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Add Product</h5>

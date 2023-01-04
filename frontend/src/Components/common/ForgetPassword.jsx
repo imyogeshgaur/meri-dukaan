@@ -20,26 +20,36 @@ const ForgetPassword = () => {
           setalert(null)
         }, 1000);
       } else {
-        const response = await axios.post(FORGET_PASS_URL_DEV, { email });
-        const data = await response.data;
-        if (data.message === "User Not Exist !!!") {
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
           setalert({
-            msg: data.message,
+            msg: "Please Fill Email In Correct Format !!!",
             type: "danger"
           })
           setTimeout(() => {
             setalert(null)
           }, 1000);
-          setEmail("")
         } else {
-          setalert({
-            msg: data.message,
-            type: "success"
-          })
-          setTimeout(() => {
-            setalert(null)
-          }, 1000);
-          setEmail("")
+          const response = await axios.post(FORGET_PASS_URL_DEV, { email });
+          const data = await response.data;
+          if (data.message === "User Not Exist !!!") {
+            setalert({
+              msg: data.message,
+              type: "danger"
+            })
+            setTimeout(() => {
+              setalert(null)
+            }, 1000);
+            setEmail("")
+          } else {
+            setalert({
+              msg: data.message,
+              type: "success"
+            })
+            setTimeout(() => {
+              setalert(null)
+            }, 1000);
+            setEmail("")
+          }
         }
       }
     } catch (error) {

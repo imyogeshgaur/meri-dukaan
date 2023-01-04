@@ -24,23 +24,44 @@ const Signup = () => {
           setalert(null)
         }, 1000);
       } else {
-        const response = await axios.post(SIGNUP_URL_DEV, {
-          userName,
-          email,
-          password,
-          role
-        })
-        const data = await response.data;
-        if (data) {
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
           setalert({
-            msg: "User Created !!!",
-            type: "success"
+            msg: "Please Fill Email In Correct Format !!!",
+            type: "danger"
           })
-          setUserName("")
-          setPassword("")
-          setRole("")
-          setEmail("")
-          window.location.href = "/"
+          setTimeout(() => {
+            setalert(null)
+          }, 1000);
+        } else {
+          const response = await axios.post(SIGNUP_URL_DEV, {
+            userName,
+            email,
+            password,
+            role
+          })
+          const data = await response.data;
+          if (data.message==="Email Already Exist !!!" || data.message==="User Name Already Exist !!!" ) {
+            setalert({
+              msg: data.message,
+              type: "danger"
+            })
+            setTimeout(() => {
+              setalert(null)
+              setUserName("")
+              setPassword("")
+              setRole("")
+              setEmail("")
+            }, 1000);
+          }else{
+            setalert({
+              msg: data.message,
+              type: "success"
+            })
+            setTimeout(() => {
+              setalert(null)
+              window.location.href = "/"
+            }, 1000);
+          }
         }
       }
     } catch (error) {
@@ -58,7 +79,7 @@ const Signup = () => {
     <>
       <NavBar />
       <Alert alert={alert} />
-      <div className="card mx-auto">
+      <div className="card mx-auto mt-5">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Sign Up Here</h5>
           <div className="mb-3">

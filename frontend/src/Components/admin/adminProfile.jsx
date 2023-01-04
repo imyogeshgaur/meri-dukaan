@@ -36,17 +36,17 @@ const AdminProfile = () => {
           window.location.href = "/unauthorized"
         } else {
           setuserName(res.data.userName);
-          setfirstName(res.data.firstName);
-          setmiddleName(res.data.middleName);
-          setlastName(res.data.lastName);
-          setphone(res.data.phone);
+          res.data.firstName!==null ? setfirstName(res.data.firstName) : setfirstName("");
+          res.data.middleName!=="null" ? setmiddleName(res.data.middleName) : setmiddleName("");
+          res.data.lastName!=="null" ? setlastName(res.data.lastName) : setlastName("");
+          res.data.phone!=="null" ? setphone(res.data.phone) : setphone("");
           setemail(res.data.email);
-          setaddressLine1(res.data.addressLine1);
-          setaddressLine2(res.data.addressLine2);
-          setstate(res.data.state);
-          setcity(res.data.city);
-          setzip(res.data.zip);
-          setfile(res.data.userImage);
+          res.data.addressLine1!=="null" ? setaddressLine1(res.data.addressLine1) : setaddressLine1("")
+          res.data.addressLine2!=="null" ? setaddressLine2(res.data.addressLine2) : setaddressLine2("")
+          res.data.state!=="null" ? setstate(res.data.state) : setstate("")
+          res.data.city!=="null" ? setcity(res.data.city) : setcity("")
+          res.data.zip!=="null" ? setzip(res.data.zip) : setzip("")
+          res.data.file!=="null" ? setfile(res.data.userImage) : setfile("")
         }
       }
       )
@@ -78,19 +78,6 @@ const AdminProfile = () => {
       });
       const data = await response.data;
       if (data.message === "User Detail Updated !!!") {
-        alert(data.message);
-        setuserName("");
-        setfirstName("");
-        setmiddleName("");
-        setlastName("");
-        setphone("");
-        setemail("");
-        setaddressLine1("");
-        setaddressLine2("");
-        setstate("");
-        setcity("");
-        setzip("");
-        setfile("");
         window.location.reload();
       }
     } catch (error) {

@@ -10,16 +10,25 @@ class AuthService {
     async signUpUser(body) {
         try {
             const { userName, email, password, role } = body;
-            const newPassword = await bcrypt.hash(password, 12);
-            const id = v1();
-            const newSignedInUser = await User.create({
-                userId: id,
-                userName,
-                email,
-                password: newPassword,
-                role
-            })
-            return newSignedInUser;
+            const userByEmail = await User.findOne({where:{email}})
+            const userByUserName = await User.findOne({where:{userName}})
+            if (userByEmail) {
+                return 0;
+            }else if(userByUserName){
+                return 1;
+            } 
+            else {
+                const newPassword = await bcrypt.hash(password, 12);
+                const id = v1();
+                const newSignedInUser = await User.create({
+                    userId: id,
+                    userName,
+                    email,
+                    password: newPassword,
+                    role
+                })
+                return newSignedInUser;
+            }
         } catch (error) {
             console.log("Auth Service Error : ", error)
         }
