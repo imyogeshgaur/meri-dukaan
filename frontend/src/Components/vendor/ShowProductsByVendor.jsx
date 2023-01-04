@@ -80,7 +80,7 @@ const ShowProductsByVendor = () => {
             filteredData.map((val) => {
               return (
                 <>
-                  <div className="col">
+                  <div className="col col-md-3">
                     <ProductCard
                       productId={val.productId}
                       productImage={val.productImage}

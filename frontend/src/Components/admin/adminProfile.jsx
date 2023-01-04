@@ -21,7 +21,6 @@ const AdminProfile = () => {
   const [city, setcity] = useState("")
   const [state, setstate] = useState("")
   const [zip, setzip] = useState("")
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {

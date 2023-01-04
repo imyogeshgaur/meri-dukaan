@@ -77,7 +77,7 @@ const ShowProducts = () => {
             filteredData.map((val) => {
               return (
                 <>
-                  <div className="col">
+                  <div className="col col-md-3">
                     <ProductCard
                       productImage={val.productImage}
                       productPrice={val.productPrice}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import UpdateUserNav from '../../assets/UpdateUserNav'
 import axios from 'axios';
 import { DELETE_USER_DEV, SHOW_USERS_DEV } from '../../constants/constant';
@@ -10,7 +10,6 @@ const DeleteUser = () => {
     const token = localStorage.getItem("jwt")
     const [Data, setData] = useState([])
     const { id } = useParams();
-    const navigate = useNavigate();
     const [alert, setalert] = useState(null)
 
     useEffect(() => {
@@ -44,7 +43,6 @@ const DeleteUser = () => {
                     setalert(null)
                     window.history.back();
                 }, 1000);
-                window.history.back()
             } else {
                 console.log(data)
             }

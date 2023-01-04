@@ -5,11 +5,13 @@ import { GoPackage } from "react-icons/go"
 import { FiLogOut } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import UserCard from '../../assets/UserCard';
+import jwt_decode from "jwt-decode"
 
 const AllUsers = () => {
   const token = localStorage.getItem("jwt");
   const [Data, setData] = useState([])
   const [search, setSearch] = useState("")
+  const {userId} = jwt_decode(token);
 
   useEffect(() => {
     if (!token) {
@@ -20,7 +22,7 @@ const AllUsers = () => {
           'authorization': token
         }
       })
-        .then(res => setData(res.data))
+        .then(res => setData(res.data.filter(usr=>usr.userId !==userId)))
         .catch(err => console.log(err))
     }
   }, [])
@@ -70,11 +72,11 @@ const AllUsers = () => {
           </ul>
         </div>
       </nav>
-      <div className="row mx-3">
+      <div className="row ms-3">
         {
           filteredData.map(val => {
             return (
-              <div className="col">
+              <div className="col col-md-3">
                 <UserCard
                   userName={val.userName}
                   role={val.role}
