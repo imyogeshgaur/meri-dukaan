@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router';
 import { DECODE_USER_DEV } from "../../constants/constant"
 import { UPDATE_USER_DEV } from "../../constants/constant"
 import UpdateUserNav from '../../assets/UpdateUserNav';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 const UserProfile = () => {
   const token = localStorage.getItem("jwt");
 
@@ -77,7 +80,19 @@ const UserProfile = () => {
       });
       const data = await response.data;
       if (data.message === "User Detail Updated !!!") {
-        window.location.reload();
+        const a = toast.success(data.message,{
+          position:toast.POSITION.TOP_CENTER,
+          closeOnClick:false,
+          closeButton:false,
+          style:{
+            color:"rgb(35, 216, 35)"
+          }
+        })
+        if(a==1){
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -213,6 +228,7 @@ const UserProfile = () => {
           <button className="btn btn-success mb-3 w-50 me-2" onClick={goOneStepBack}>Back</button>
         </div>
       </div>
+      <ToastContainer autoClose={1000} />
     </>
   )
 }

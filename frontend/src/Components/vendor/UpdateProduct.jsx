@@ -60,8 +60,8 @@ const UpdateProduct = () => {
         })
         setTimeout(() => {
           setalert(null)
+          window.location.reload()
         }, 1000);
-        window.location.reload()
       } else {
         setalert({
           msg: data.message,

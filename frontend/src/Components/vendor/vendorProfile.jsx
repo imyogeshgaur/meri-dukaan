@@ -4,6 +4,8 @@ import "../../styles/UserProfile.css"
 import { DECODE_USER_DEV } from "../../constants/constant"
 import { UPDATE_USER_DEV } from "../../constants/constant"
 import UpdateUserNav from '../../assets/UpdateUserNav';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const VendorProfile = () => {
   const token = localStorage.getItem("jwt");
@@ -34,17 +36,17 @@ const VendorProfile = () => {
           window.location.href = "/unauthorized"
         } else {
           setuserName(res.data.userName);
-          res.data.firstName!==null ? setfirstName(res.data.firstName) : setfirstName("");
-          res.data.middleName!=="null" ? setmiddleName(res.data.middleName) : setmiddleName("");
-          res.data.lastName!=="null" ? setlastName(res.data.lastName) : setlastName("");
-          res.data.phone!=="null" ? setphone(res.data.phone) : setphone("");
+          res.data.firstName !== null ? setfirstName(res.data.firstName) : setfirstName("");
+          res.data.middleName !== "null" ? setmiddleName(res.data.middleName) : setmiddleName("");
+          res.data.lastName !== "null" ? setlastName(res.data.lastName) : setlastName("");
+          res.data.phone !== "null" ? setphone(res.data.phone) : setphone("");
           setemail(res.data.email);
-          res.data.addressLine1!=="null" ? setaddressLine1(res.data.addressLine1) : setaddressLine1("")
-          res.data.addressLine2!=="null" ? setaddressLine2(res.data.addressLine2) : setaddressLine2("")
-          res.data.state!=="null" ? setstate(res.data.state) : setstate("")
-          res.data.city!=="null" ? setcity(res.data.city) : setcity("")
-          res.data.zip!=="null" ? setzip(res.data.zip) : setzip("")
-          res.data.file!=="null" ? setfile(res.data.userImage) : setfile("")
+          res.data.addressLine1 !== "null" ? setaddressLine1(res.data.addressLine1) : setaddressLine1("")
+          res.data.addressLine2 !== "null" ? setaddressLine2(res.data.addressLine2) : setaddressLine2("")
+          res.data.state !== "null" ? setstate(res.data.state) : setstate("")
+          res.data.city !== "null" ? setcity(res.data.city) : setcity("")
+          res.data.zip !== "null" ? setzip(res.data.zip) : setzip("")
+          res.data.file !== "null" ? setfile(res.data.userImage) : setfile("")
         }
       }
       )
@@ -76,7 +78,19 @@ const VendorProfile = () => {
       });
       const data = await response.data;
       if (data.message === "User Detail Updated !!!") {
-        window.location.reload();
+        const a = toast.success(data.message,{
+          position:toast.POSITION.TOP_CENTER,
+          closeOnClick:false,
+          closeButton:false,
+          style:{
+            color:"rgb(35, 216, 35)"
+          }
+        })
+        if(a==1){
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -213,6 +227,7 @@ const VendorProfile = () => {
           <button className="btn btn-success mb-3 w-50 me-3 ms-2" onClick={goOneStepBack}>Back</button>
         </div>
       </div>
+      <ToastContainer autoClose={1000} />
     </>
   )
 }
