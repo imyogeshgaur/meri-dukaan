@@ -55,7 +55,9 @@ const ShowProducts = () => {
             <ul className="navbar-nav">
               <li className="nav-item">
                 <div className="d-inline-flex">
-                  <BsFillCartFill size={49} color={"white"} className='mx-2' />
+                  <a href="/cart">
+                    <BsFillCartFill size={34} color={"white"} className='mx-2 mt-1' />
+                  </a>
                   <Link to="/user">
                     <FaUserEdit size={37} color={"white"} className='mx-2 mt-1' />
                   </Link>

@@ -1,6 +1,6 @@
 import { useLocation } from "react-router"
 import "../styles/Card.css"
-import defaultImage from "./default.jpg"
+import defaultImage from "../../public/default.jpg"
 
 const UserCard = (props) => {
 

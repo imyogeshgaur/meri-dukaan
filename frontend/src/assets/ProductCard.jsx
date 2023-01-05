@@ -3,33 +3,69 @@ import { MdAddCircleOutline, MdOutlineRemoveCircleOutline, MdDeleteForever } fro
 import { FaEdit } from "react-icons/fa";
 import { useLocation } from "react-router"
 import "../styles/Card.css"
-
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductCard = (props) => {
   const [counter, setcounter] = useState(0);
   const path = useLocation();
-
+ 
   const addItem = () => {
     if (counter === 5) {
       document.getElementById("addButton").classList.add("disabled")
-      alert("Reached Maximum Limit !!!");
+      const a = toast.warn("Reached Maximum Limit !!!", {
+        position: toast.POSITION.TOP_CENTER,
+        closeOnClick: false,
+        closeButton: false,
+        style: {
+          color: "rgb(236, 199, 32)",
+          backgroundColor: "rgb(255, 248, 214)"
+        }
+      })
+      if(a==1){
+        setTimeout(() => {
+          document.getElementById("addButton").classList.remove("disabled")
+        }, 2000);
+      }
     } else {
       setcounter(counter + 1)
-
-      //Todo : Add Items in localStorage
       document.getElementById("removeButton").classList.remove("disabled")
     }
   }
   const removeItem = () => {
     if (counter === 0) {
       document.getElementById("removeButton").classList.add("disabled")
+      const a = toast.warn("Reached Minimum Limit !!!", {
+        position: toast.POSITION.TOP_CENTER,
+        closeOnClick: false,
+        closeButton: false,
+        style: {
+          color: "rgb(236, 199, 32)",
+          backgroundColor: "rgb(255, 248, 214)"
+        }
+      })
+      if(a==1){
+        setTimeout(() => {
+          document.getElementById("removeButton").classList.remove("disabled")
+        }, 2000);
+      }
     } else {
       setcounter(counter - 1);
     }
   }
 
+  const addToCart = () =>{
+      localStorage.setItem(props.productName,[JSON.stringify({"quantity":counter,"price":props.productPrice})]);
+  }
+
+  const removeFromCart = () =>{
+    localStorage.removeItem(props.productName);
+    setcounter(0)
+  }
+  
   return (
     <>
+      <ToastContainer autoClose={1000} />
       <div className="card">
         <img src={props.productImage} className="card-img-top" alt={props.productName} height={210} />
         <div className="card-body">
@@ -54,7 +90,7 @@ const ProductCard = (props) => {
           <div className="d-inline-flex">
             {
               path.pathname === "/products" ?
-                ""
+                <></>
                 :
                 <div className="d-inline-flex mb-3">
                   <a className="btn btn-warning me-1" href={`/updateProduct/${props.productId}`}><FaEdit color="white" size={21} /></a>
@@ -75,6 +111,17 @@ const ProductCard = (props) => {
                   <></>
               }
             </div>
+            {
+                path.pathname === "/products" ?
+                  <>
+                  <div className="d-inline-fglex">
+                    <button className='btn btn-success w-100 mt-3' id="addButton" onClick={addToCart}>Add To Cart</button>
+                    <button className='btn btn-danger w-100 mt-2' id="addButton" onClick={removeFromCart}>Remove From Cart</button>
+                  </div>
+                  </>
+                  :
+                  <></>
+              }
           </div>
         </div>
       </div >
