@@ -1,15 +1,15 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import Alert from '../../assets/Alert'
+import {  useParams } from 'react-router'
 import UpdateUserNav from '../../assets/UpdateUserNav'
 import { DELETE_PRODUCT_DEV, GET_A_PRODUCT_DEV } from '../../constants/constant'
 import "../../styles/UpdateProduct.css"
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const DeleteProduct = () => {
   const token = localStorage.getItem("jwt")
   const [name, setName] = useState("")
-  const [alert, setalert] = useState(null)
   const { id } = useParams();
 
   useEffect(() => {
@@ -35,24 +35,54 @@ const DeleteProduct = () => {
       })
       const data = await res.data;
       if (data.message) {
-        setalert({
-          msg: data.message,
-          type: "success"
-        })
-        setTimeout(() => {
-          setalert(null)
-          window.history.back();
-        }, 1000);
+        if (data.message === "Product Deleted !!!") {
+          const a = toast.success(data.message, {
+            position: toast.POSITION.TOP_CENTER,
+            closeOnClick: false,
+            closeButton: false,
+            style: {
+              color: "green",
+              backgroundColor: "rgb(183, 248, 183)"
+            }
+          })
+          if (a == 1) {
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        } else {
+          const a = toast.error(data.message, {
+            position: toast.POSITION.TOP_CENTER,
+            closeOnClick: false,
+            closeButton: false,
+            style: {
+              color: "red",
+              backgroundColor: "rgb(255, 206, 206)"
+            }
+          })
+          if (a == 1) {
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        }
       }
     } catch (error) {
       console.log(error)
-      setalert({
-        msg: "Network Error !!!",
-        type: "danger"
+      const a = toast.error("Network Error !!!", {
+        position: toast.POSITION.TOP_CENTER,
+        closeOnClick: false,
+        closeButton: false,
+        style: {
+          color: "red",
+          backgroundColor: "rgb(255, 206, 206)"
+        }
       })
-      setTimeout(() => {
-        setalert(null)
-      }, 1000);
+      if (a == 1) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+      }
     }
   }
 
@@ -63,7 +93,6 @@ const DeleteProduct = () => {
   return (
     <>
       <UpdateUserNav />
-      <Alert alert={alert} />
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Delete Product</h5>
@@ -77,6 +106,7 @@ const DeleteProduct = () => {
           <button className="btn btn-success w-50 mx-2" onClick={goOneStepBack}>Back</button>
         </div>
       </div>
+      <ToastContainer autoClose={1000} />
     </>
   )
 }

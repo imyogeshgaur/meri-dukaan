@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from "axios";
 import "../../styles/UserProfile.css"
 import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";;
+import "react-toastify/dist/ReactToastify.css";
 import { DECODE_USER_DEV } from "../../constants/constant"
 import { UPDATE_USER_DEV } from "../../constants/constant"
 import UpdateUserNav from '../../assets/UpdateUserNav';
@@ -83,7 +83,8 @@ const AdminProfile = () => {
           closeOnClick:false,
           closeButton:false,
           style:{
-            color:"rgb(35, 216, 35)"
+            color:"green",
+            backgroundColor:"rgb(183, 248, 183)"
           }
         })
         if(a==1){

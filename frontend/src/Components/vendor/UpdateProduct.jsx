@@ -4,7 +4,8 @@ import axios from 'axios';
 import "../../styles/UpdateProduct.css"
 import { GET_A_PRODUCT_DEV, UPDATE_PRODUCT_DEV } from '../../constants/constant';
 import UpdateUserNav from '../../assets/UpdateUserNav';
-import Alert from '../../assets/Alert';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const UpdateProduct = () => {
   const token = localStorage.getItem("jwt")
@@ -14,7 +15,6 @@ const UpdateProduct = () => {
   const [productQuantity, setProductQuantity] = useState([])
   const [productPrice, setProductPrice] = useState([])
   const { id } = useParams();
-  const [alert, setalert] = useState(null)
 
   useEffect(() => {
     if (!token) {
@@ -37,50 +37,104 @@ const UpdateProduct = () => {
 
   const updateProduct = async () => {
     try {
-      const formData = new FormData();
-      formData.append("productId", productId)
-      formData.append("productName", productName)
-      formData.append("productPrice", productPrice)
-      formData.append("productQuantity", productQuantity)
-      formData.append("productImage", file)
+      const regx = /^\d+$/
+      if (!productName || !productPrice || !productQuantity || !file) {
+        const a = toast.error("Please add all fields !!!", {
+          position: toast.POSITION.TOP_CENTER,
+          closeOnClick: false,
+          closeButton: false,
+          style: {
+            color: "red",
+            backgroundColor: "rgb(255, 206, 206)"
+          }
+        })
+        if (a == 1) {
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        }
+      } else if ((!regx.test(productPrice)) || !regx.test(productQuantity)) {
+        const a = toast.error("Price and Quantity should be an Integer !!!", {
+          position: toast.POSITION.TOP_CENTER,
+          closeOnClick: false,
+          closeButton: false,
+          style: {
+            color: "red",
+            backgroundColor: "rgb(255, 206, 206)",
+            width: "344px"
+          }
+        })
+        if (a == 1) {
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        }
+      }
+      else {
+        const formData = new FormData();
+        formData.append("productId", productId)
+        formData.append("productName", productName)
+        formData.append("productPrice", productPrice)
+        formData.append("productQuantity", productQuantity)
+        formData.append("productImage", file)
 
-      const res = await axios({
-        baseURL: UPDATE_PRODUCT_DEV,
-        method: 'PUT',
-        headers: {
-          'authorization': token
-        },
-        data: formData
-      })
-      const data = await res.data;
-      if (data.message === "Product Details Updated !!!") {
-        setalert({
-          msg: data.message,
-          type: "success"
+        const res = await axios({
+          baseURL: UPDATE_PRODUCT_DEV,
+          method: 'PUT',
+          headers: {
+            'authorization': token
+          },
+          data: formData
         })
-        setTimeout(() => {
-          setalert(null)
-          window.location.reload()
-        }, 1000);
-      } else {
-        setalert({
-          msg: data.message,
-          type: "danger"
-        })
-        setTimeout(() => {
-          setalert(null)
-        }, 1000);
-        window.location.reload()
+        const data = await res.data;
+        if (data.message === "Product Details Updated !!!") {
+          const a = toast.success(data.message, {
+            position: toast.POSITION.TOP_CENTER,
+            closeOnClick: false,
+            closeButton: false,
+            style: {
+              color: "green",
+              backgroundColor: "rgb(183, 248, 183)"
+            }
+          })
+          if (a == 1) {
+            setTimeout(() => {
+              window.location.reload()
+            }, 2000);
+          }
+        } else {
+          const a = toast.error(data.message, {
+            position: toast.POSITION.TOP_CENTER,
+            closeOnClick: false,
+            closeButton: false,
+            style: {
+              color: "red",
+              backgroundColor: "rgb(255, 206, 206)"
+            }
+          })
+          if (a == 1) {
+            setTimeout(() => {
+              window.location.reload()
+            }, 2000);
+          }
+        }
       }
     } catch (error) {
       console.log(error)
-      setalert({
-        msg: "Network Error !!!",
-        type: "danger"
+      const a = toast.error("Network Error !!!", {
+        position: toast.POSITION.TOP_CENTER,
+        closeOnClick: false,
+        closeButton: false,
+        style: {
+          color: "red",
+          backgroundColor: "rgb(255, 206, 206)"
+        }
       })
-      setTimeout(() => {
-        setalert(null)
-      }, 1000);
+      if (a == 1) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+      }
     }
   }
   const goOneStepBack = () => {
@@ -89,7 +143,6 @@ const UpdateProduct = () => {
   return (
     <>
       <UpdateUserNav />
-      <Alert alert={alert} />
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Update Product Details </h5>
@@ -129,6 +182,7 @@ const UpdateProduct = () => {
           <button className="btn btn-success w-50 mx-2" onClick={goOneStepBack}>Back</button>
         </div>
       </div>
+      <ToastContainer autoClose={1000} />
     </>
   )
 }

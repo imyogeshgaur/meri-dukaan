@@ -85,7 +85,8 @@ const UserProfile = () => {
           closeOnClick:false,
           closeButton:false,
           style:{
-            color:"rgb(35, 216, 35)"
+            color:"green",
+            backgroundColor:"rgb(183, 248, 183)"
           }
         })
         if(a==1){

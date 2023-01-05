@@ -78,12 +78,13 @@ const VendorProfile = () => {
       });
       const data = await response.data;
       if (data.message === "User Detail Updated !!!") {
-        const a = toast.success(data.message,{
+        const a = toast.green(data.message,{
           position:toast.POSITION.TOP_CENTER,
           closeOnClick:false,
           closeButton:false,
           style:{
-            color:"rgb(35, 216, 35)"
+            color:"green",
+            backgroundColor:"rgb(183, 248, 183)"
           }
         })
         if(a==1){

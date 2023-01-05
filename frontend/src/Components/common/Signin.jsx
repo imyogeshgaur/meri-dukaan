@@ -4,13 +4,13 @@ import NavBar from '../../assets/NavBar'
 import axios from "axios"
 import { DECODE_USER_DEV, SIGIN_URL_DEV } from '../../constants/constant'
 import "../../styles/Signin.css"
-import Alert from '../../assets/Alert'
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Signin = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const token = localStorage.getItem("jwt");
-  const [alert, setalert] = useState(null);
 
   useEffect(() => {
     if (token) {
@@ -35,13 +35,20 @@ const Signin = () => {
   const signInUser = async () => {
     try {
       if (!email || !password) {
-        setalert({
-          msg: "Please Fill All Data !!!",
-          type: "danger"
+        const a = toast.error("Please Fill All Data !!!", {
+          position: toast.POSITION.TOP_CENTER,
+          closeOnClick: false,
+          closeButton: false,
+          style: {
+            color: "red",
+            backgroundColor: "rgb(255, 206, 206)"
+          }
         })
-        setTimeout(() => {
-          setalert(null)
-        }, 1000);
+        if (a == 1) {
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        };
       } else {
         const response = await axios.post(SIGIN_URL_DEV, {
           email,
@@ -49,13 +56,20 @@ const Signin = () => {
         })
         const data = response.data;
         if (!data.token) {
-          setalert({
-            msg: data.message,
-            type: "danger"
+          const a = toast.error(data.message, {
+            position: toast.POSITION.TOP_CENTER,
+            closeOnClick: false,
+            closeButton: false,
+            style: {
+              color: "red",
+              backgroundColor: "rgb(255, 206, 206)"
+            }
           })
-          setTimeout(() => {
-            setalert(null)
-          }, 1000);
+          if (a == 1) {
+            setTimeout(() => {
+              window.location.reload()
+            }, 2000);
+          }
         } else {
           localStorage.setItem("jwt", data.token)
           const responseNext = await axios.post(DECODE_USER_DEV, "", {
@@ -76,20 +90,26 @@ const Signin = () => {
       }
     } catch (error) {
       console.log(error)
-      setalert({
-        msg: "Network Error !!!",
-        type: "danger"
+      const a = toast.error("Network Error !!!", {
+        position: toast.POSITION.TOP_CENTER,
+        closeOnClick: false,
+        closeButton: false,
+        style: {
+          color: "red",
+          backgroundColor: "rgb(255, 206, 206)"
+        }
       })
-      setTimeout(() => {
-        setalert(null)
-      }, 1000);
+      if (a == 1) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+      }
     }
   }
 
   return (
     <>
       <NavBar />
-      <Alert alert={alert} />
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Login Here</h5>
@@ -106,6 +126,7 @@ const Signin = () => {
         <Link style={{ color: "blue", cursor: "pointer", textDecoration: "none" }} className="mx-auto" to="/forgetPassword">Forget Password</Link>
         <p className='text-light text-center mt-2'>New To Meri Dukaan ?  <Link style={{ color: "blue", cursor: "pointer", textDecoration: "none" }} to="/signup">Sign Up Here</Link></p>
       </div>
+      <ToastContainer autoClose={1000} />
     </>
   )
 }

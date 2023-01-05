@@ -1,9 +1,10 @@
 import "../../styles/AddProduct.css"
 import NavBar from '../../assets/NavBar'
-import Alert from '../../assets/Alert';
 import { useEffect, useState } from 'react'
 import axios from "axios";
 import { ADD_PRODUCT_DEV, DECODE_USER_DEV } from '../../constants/constant'
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProduct = () => {
   const token = localStorage.getItem("jwt")
@@ -12,7 +13,6 @@ const AddProduct = () => {
   const [productName, setProductName] = useState("")
   const [productQuantity, setProductQuantity] = useState("")
   const [productPrice, setProductPrice] = useState("")
-  const [alert, setalert] = useState(null)
 
   useEffect(() => {
     if (!token) {
@@ -35,21 +35,36 @@ const AddProduct = () => {
   const addProduct = async () => {
     const regx = /^\d+$/
     if (!productName || !productPrice || !productQuantity || !file) {
-      setalert({
-        msg: "Please Enter all Fields !!!",
-        type: "danger"
+      const a = toast.error("Please add all fields !!!", {
+        position: toast.POSITION.TOP_CENTER,
+        closeOnClick: false,
+        closeButton: false,
+        style: {
+          color: "red",
+          backgroundColor: "rgb(255, 206, 206)"
+        }
       })
-      setTimeout(() => {
-        setalert(null)
-      }, 1000);
+      if (a == 1) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+      }
     } else if ((!regx.test(productPrice)) || !regx.test(productQuantity)) {
-      setalert({
-        msg: "Product Price and Quantity should be an Integer !!!",
-        type: "danger"
+      const a = toast.error("Price and Quantity should be an Integer !!!", {
+        position: toast.POSITION.TOP_CENTER,
+        closeOnClick: false,
+        closeButton: false,
+        style: {
+          color: "red",
+          backgroundColor: "rgb(255, 206, 206)",
+          width:"344px"
+        }
       })
-      setTimeout(() => {
-        setalert(null)
-      }, 1000);
+      if (a == 1) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+      }
     }
     else {
       try {
@@ -69,28 +84,37 @@ const AddProduct = () => {
         })
         const data = await response.data;
         if (data) {
-          setalert({
-            msg: "Product Added Sucessfully !!!",
-            type: "success"
+          const a = toast.success("Product Added Sucessfully !!!", {
+            position: toast.POSITION.TOP_CENTER,
+            closeOnClick: false,
+            closeButton: false,
+            style: {
+              color: "green",
+              backgroundColor: "rgb(183, 248, 183)"
+            }
           })
-          setTimeout(() => {
-            setalert(null)
-          }, 1000);
-          setProductName("")
-          setProductPrice("")
-          setProductQuantity("")
-          setFile("")
+          if (a == 1) {
+            setTimeout(() => {
+              window.location.href="vendorProducts"
+            }, 2000);
+          }
         }
       } catch (error) {
         console.log(error)
-        setalert({
-          msg: "Network Error !!!",
-          type: "danger"
+        const a = toast.error("Network Error !!!", {
+          position: toast.POSITION.TOP_CENTER,
+          closeOnClick: false,
+          closeButton: false,
+          style: {
+            color: "red",
+            backgroundColor: "rgb(255, 206, 206)"
+          }
         })
-        setTimeout(() => {
-          setalert(null)
-          window.location.href = "vendorProducts"
-        }, 1000);
+        if (a == 1) {
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        }
       }
     }
   }
@@ -100,7 +124,6 @@ const AddProduct = () => {
   return (
     <>
       <NavBar userName={Data.userName ? Data.userName : Data.firstName} />
-      <Alert alert={alert}/>
       <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Add Product</h5>
@@ -124,6 +147,7 @@ const AddProduct = () => {
         <button className="btn btn-primary w-50 mx-auto mb-4" onClick={addProduct}>Add Product</button>
         <button className="btn btn-success w-50 mx-auto mb-4" onClick={goToVendorProfile}>View Profile</button>
       </div>
+      <ToastContainer autoClose={1000} />
     </>
   )
 }

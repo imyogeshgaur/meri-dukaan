@@ -40,25 +40,25 @@ const AllProducts = () => {
   }
   return (
     <>
-      <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+      <nav className="navbar navbar-expand-lg bg-primary">
+        <div className="container-fluid">
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
                 <h3 className="text-light">Meri Dukaan</h3>
               </li>
             </ul>
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li className="nav-item">
                 <h3 className="text-light">Welcome Admin</h3>
               </li>
             </ul>
           </div>
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li className="nav-item">
               <div className="d-inline-flex">
                 <Link to="/allUsers">
                   <HiUsers color="white" size={35} className="me-2" />

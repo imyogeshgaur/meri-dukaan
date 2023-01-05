@@ -4,13 +4,13 @@ import UpdateUserNav from '../../assets/UpdateUserNav'
 import axios from 'axios';
 import { DELETE_USER_DEV, SHOW_USERS_DEV } from '../../constants/constant';
 import "../../styles/UpdateProduct.css"
-import Alert from '../../assets/Alert';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const DeleteUser = () => {
     const token = localStorage.getItem("jwt")
     const [Data, setData] = useState([])
     const { id } = useParams();
-    const [alert, setalert] = useState(null)
 
     useEffect(() => {
         if (!token) {
@@ -35,25 +35,39 @@ const DeleteUser = () => {
             })
             const data = await res.data;
             if (data.message) {
-                setalert({
-                    msg: data.message,
-                    type: "success"
+                const a = toast.success(data.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    closeOnClick: false,
+                    closeButton: false,
+                    style: {
+                        color: "green",
+                        backgroundColor: "rgb(183, 248, 183)"
+                    }
                 })
-                setTimeout(() => {
-                    setalert(null)
-                    window.history.back();
-                }, 1000);
-            } else {
-                console.log(data)
+                if (a == 1) {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    console.log(data)
+                }
             }
         } catch (error) {
-            setalert({
-                msg: "Network Error !!!",
-                type: "danger"
+            console.log(error)
+            const a = toast.error("Network Error !!!", {
+                position: toast.POSITION.TOP_CENTER,
+                closeOnClick: false,
+                closeButton: false,
+                style: {
+                    color: "red",
+                    backgroundColor: "rgb(255, 206, 206)"
+                }
             })
-            setTimeout(() => {
-                setalert(null)
-            }, 1000);
+            if (a == 1) {
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000);
+            }
         }
     }
 
@@ -64,7 +78,6 @@ const DeleteUser = () => {
     return (
         <>
             <UpdateUserNav />
-            <Alert alert={alert}/>
             <div className="card mx-auto">
                 <div className="card-body">
                     <h5 className="card-title text-light text-center">Delete User</h5>
@@ -86,6 +99,7 @@ const DeleteUser = () => {
                     <button className="btn btn-success w-50 mx-2" onClick={goOneStepBack}>Back</button>
                 </div>
             </div>
+            <ToastContainer autoClose={1000} />
         </>
     )
 }

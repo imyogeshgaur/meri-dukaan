@@ -4,7 +4,8 @@ import axios from "axios";
 import NavBar from '../../assets/NavBar'
 import "../../styles/Signup.css"
 import { SIGNUP_URL_DEV } from '../../constants/constant';
-import Alert from '../../assets/Alert';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const [userName, setUserName] = useState("")
@@ -16,22 +17,36 @@ const Signup = () => {
   const userSignUp = async () => {
     try {
       if (!email || !password || !userName || !role) {
-        setalert({
-          msg: "Please Fill All Data !!!",
-          type: "danger"
+        const a = toast.error("Please Fill All Data !!!", {
+          position: toast.POSITION.TOP_CENTER,
+          closeOnClick: false,
+          closeButton: false,
+          style: {
+            color: "red",
+            backgroundColor: "rgb(255, 206, 206)"
+          }
         })
-        setTimeout(() => {
-          setalert(null)
-        }, 1000);
+        if (a == 1) {
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        }
       } else {
         if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
-          setalert({
-            msg: "Please Fill Email In Correct Format !!!",
-            type: "danger"
+          const a = toast.error("Please Fill Email In Correct Format !!!", {
+            position: toast.POSITION.TOP_CENTER,
+            closeOnClick: false,
+            closeButton: false,
+            style: {
+              color: "red",
+              backgroundColor: "rgb(255, 206, 206)"
+            }
           })
-          setTimeout(() => {
-            setalert(null)
-          }, 1000);
+          if (a == 1) {
+            setTimeout(() => {
+              window.location.reload()
+            }, 2000);
+          }
         } else {
           const response = await axios.post(SIGNUP_URL_DEV, {
             userName,
@@ -40,46 +55,61 @@ const Signup = () => {
             role
           })
           const data = await response.data;
-          if (data.message==="Email Already Exist !!!" || data.message==="User Name Already Exist !!!" ) {
-            setalert({
-              msg: data.message,
-              type: "danger"
+          if (data.message === "Email Already Exist !!!" || data.message === "User Name Already Exist !!!") {
+            const a = toast.error(data.message, {
+              position: toast.POSITION.TOP_CENTER,
+              closeOnClick: false,
+              closeButton: false,
+              style: {
+                color: "red",
+                backgroundColor: "rgb(255, 206, 206)"
+              }
             })
-            setTimeout(() => {
-              setalert(null)
-              setUserName("")
-              setPassword("")
-              setRole("")
-              setEmail("")
-            }, 1000);
-          }else{
-            setalert({
-              msg: data.message,
-              type: "success"
+            if (a == 1) {
+              setTimeout(() => {
+                window.location.reload()
+              }, 2000);
+            }
+          } else {
+            const a = toast.success(data.message, {
+              position: toast.POSITION.TOP_CENTER,
+              closeOnClick: false,
+              closeButton: false,
+              style: {
+                color: "green",
+                backgroundColor: "rgb(183, 248, 183)"
+              }
             })
-            setTimeout(() => {
-              setalert(null)
-              window.location.href = "/"
-            }, 1000);
+            if (a == 1) {
+              setTimeout(() => {
+                window.location.href="/"
+              }, 2000);
+            }
           }
         }
       }
     } catch (error) {
       console.log(error)
-      setalert({
-        msg: "Network Error !!!",
-        type: "danger"
+      const a = toast.error("Network Error !!!", {
+        position: toast.POSITION.TOP_CENTER,
+        closeOnClick: false,
+        closeButton: false,
+        style: {
+          color: "red",
+          backgroundColor: "rgb(255, 206, 206)"
+        }
       })
-      setTimeout(() => {
-        setalert(null)
-      }, 1000);
+      if (a == 1) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+      }
     }
   }
   return (
     <>
       <NavBar />
-      <Alert alert={alert} />
-      <div className="card mx-auto mt-5">
+      <div className="card mx-auto">
         <div className="card-body">
           <h5 className="card-title text-light text-center">Sign Up Here</h5>
           <div className="mb-3">
@@ -108,6 +138,7 @@ const Signup = () => {
         <button className="btn btn-primary w-50 mx-auto mb-2" onClick={userSignUp}>Sign Up</button>
         <p className='text-light text-center'>Already Rgistered ? <Link style={{ color: "blue", cursor: "pointer", textDecoration: "none" }} className="fw-bold" to="/">Login Here</Link></p>
       </div>
+      <ToastContainer autoClose={1000} />
     </>
   )
 }
