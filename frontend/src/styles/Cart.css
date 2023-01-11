@@ -5,10 +5,17 @@
 }
 .card2{
     width:24rem;
-    margin-right: 0;
+    position: absolute;
+    right: 0;
     background-color: rgb(145, 97, 233)!important;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    border: 1px solid rgb(78, 76, 76);
 }
 #checkout{
-    margin-top:-41.4rem;
+    position: static;
+    margin-top: 3rem;
     margin-left:55rem;
+    z-index: -4;
 }

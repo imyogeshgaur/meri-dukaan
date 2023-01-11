@@ -4,7 +4,7 @@ import "../styles/NavBar.css"
 const UpdateUserNav = () => {
 
     const logoutUser = () => {
-        localStorage.clear("jwt")
+        localStorage.removeItem("jwt")
         window.location.href = "/"
     }
 

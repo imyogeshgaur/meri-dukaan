@@ -35,7 +35,7 @@ const AllProducts = () => {
   })
 
   const logoutUser = () => {
-    localStorage.clear("jwt")
+    localStorage.removeItem("jwt")
     window.location.href = "/"
   }
   return (
