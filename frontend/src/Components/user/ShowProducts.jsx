@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useMemo } from 'react'
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { SHOW_PRODUCTS_DEV } from '../../constants/constant';
@@ -26,13 +26,15 @@ const ShowProducts = () => {
     }
   }, [])
 
-  const filteredData = Data.filter(value => {
-    if (search === "") {
-      return value;
-    } if (value.productName.toLowerCase().includes(search.toLowerCase())) {
-      return value.productName
-    }
-    return null;
+  const filteredData = useMemo(()=>{
+    return Data.filter(value => {
+        if (search === "") {
+          return value;
+        } if (value.productName.toLowerCase().includes(search.toLowerCase())) {
+          return value.productName
+        }
+        return null;
+      })
   })
 
   const logoutUser = () => {

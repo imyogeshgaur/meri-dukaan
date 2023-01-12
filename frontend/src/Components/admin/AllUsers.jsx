@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect,useMemo } from 'react'
 import axios from 'axios';
 import { SHOW_USERS_DEV } from '../../constants/constant';
 import { GoPackage } from "react-icons/go"
@@ -27,13 +27,15 @@ const AllUsers = () => {
     }
   }, [])
 
-  const filteredData = Data.filter(value => {
-    if (search === "") {
-      return value;
-    } if (value.userName.toLowerCase().includes(search.toLowerCase())) {
-      return value.userName
-    }
-    return null;
+  const filteredData = useMemo(()=>{
+    return Data.filter(value => {
+        if (search === "") {
+          return value;
+        } if (value.userName.toLowerCase().includes(search.toLowerCase())) {
+          return value.userName
+        }
+        return null;
+      })
   })
 
   const logoutUser = () => {

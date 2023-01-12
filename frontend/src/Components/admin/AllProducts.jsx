@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect,useMemo } from 'react'
 import axios from 'axios';
 import { SHOW_PRODUCTS_DEV } from '../../constants/constant';
 import { FiLogOut } from "react-icons/fi"
@@ -25,13 +25,15 @@ const AllProducts = () => {
     }
   }, [])
 
-  const filteredData = Data.filter(value => {
-    if (search === "") {
-      return value;
-    } if (value.productName.toLowerCase().includes(search.toLowerCase())) {
-      return value.productName
-    }
-    return null;
+  const filteredData = useMemo(()=>{
+    return Data.filter(value => {
+        if (search === "") {
+          return value;
+        } if (value.productName.toLowerCase().includes(search.toLowerCase())) {
+          return value.productName
+        }
+        return null;
+      })
   })
 
   const logoutUser = () => {
