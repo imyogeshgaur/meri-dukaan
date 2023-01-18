@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import Cart from "./Components/user/Cart";
+import User from "./redux/User";
 
 //? Common Routes
 const Signin = lazy(() => import('./Components/common/Signin'));
@@ -49,7 +50,10 @@ const routes = [
     { path: "/user", element: <UserProfile /> },
     { path: "/vendor", element: <VendorProfile /> },
     { path: "/admin", element: <AdminProfile /> },
-    { path: "/deleteUser/:id", element: <DeleteUser /> }
+    { path: "/deleteUser/:id", element: <DeleteUser /> },
+
+    //! Test Route
+    { path: "/test", element:<User />}
 ]
 
 export default routes;
