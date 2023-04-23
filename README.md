@@ -13,7 +13,7 @@ Step 1 : Create a database named as ecomdb in MySQL database.
 
 Step 2 : Create a .env file in the backend folder (see folder structure) with following credentials 
 ```
-DB_URI = mysql://root:root@127.0.0.1:3306/ecomdb
+DB_URI = mysql://DB_USERNAME:DB_PASSWORD@127.0.0.1:3306/ecomdb
 SECRET = JWT_SECRET
 MAILID = GMAIL_ID
 MAILPASS = GMAIL_PASSWORD
