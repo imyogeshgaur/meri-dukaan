@@ -1,5 +1,4 @@
 import { lazy } from "react";
-import Cart from "./Components/user/Cart";
 import User from "./redux/User";
 
 //? Common Routes
@@ -17,6 +16,8 @@ const AddProduct = lazy(() => import("./Components/vendor/AddProduct"))
 const AllProducts = lazy(() => import("./Components/admin/AllProducts"))
 const DeleteProduct = lazy(() => import("./Components/vendor/DeleteProduct"));
 const UpdateProduct = lazy(() => import("./Components/vendor/UpdateProduct"))
+const Cart = lazy(()=>import("./Components/user/Cart"))
+const EmptyCart = lazy(()=>import("./Components/user/EmptyCart"))
 
 //? User Routes
 const AllUsers = lazy(() => import("./Components/admin/AllUsers"))
@@ -44,6 +45,7 @@ const routes = [
     { path: "/updateProduct/:id", element: <UpdateProduct /> },
     { path: "/deleteProduct/:id", element: <DeleteProduct /> },
     { path: "/cart", element: <Cart /> },
+    { path: "/emptyCart", element: <EmptyCart /> },
 
     // User Routes
     { path: "/allUsers", element: <AllUsers /> },

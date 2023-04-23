@@ -15,6 +15,9 @@ const Cart = () => {
 
   }
   useEffect(() => {
+    if (JSON.stringify(products) === '{}') {
+      location.href = "/emptyCart"
+    }
     const quant = items.map(item => item.detail.quantity)
     const pri = items.map(item => item.detail.price)
     var array = [];
@@ -32,16 +35,16 @@ const Cart = () => {
   return (
     <>
       <UpdateUserNav />
-        <div className="card2">
-          <div className="card-body">
-            <h5 className="card-title text-light text-center">Checkout Here</h5>
-            <div className="mb-3">
-              <label className="form-label text-light">Grand Total </label>
-              <input type="email" className="form-control" value={`₹ ${checkout}`}/>
-            </div>
-            <button className="btn btn-success w-50 mb-4 mx-auto">Checkout</button>
+      <div className="card2">
+        <div className="card-body">
+          <h5 className="card-title text-light text-center">Checkout Here</h5>
+          <div className="mb-3">
+            <label className="form-label text-light">Grand Total </label>
+            <input type="email" className="form-control" value={`₹ ${checkout}`} />
           </div>
+          <button className="btn btn-success w-50 mb-4 mx-auto">Checkout</button>
         </div>
+      </div>
       <div className="d-flex flex-column">
         {
           items.map(val => {
