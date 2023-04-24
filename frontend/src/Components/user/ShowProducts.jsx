@@ -1,4 +1,4 @@
-import { useEffect, useState,useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { SHOW_PRODUCTS_DEV } from '../../constants/constant';
@@ -11,6 +11,7 @@ const ShowProducts = () => {
   const token = localStorage.getItem("jwt");
   const [Data, setData] = useState([])
   const [search, setSearch] = useState("")
+  const [cartSize, setCartSize] = useState("")
 
   useEffect(() => {
     if (!token) {
@@ -23,18 +24,22 @@ const ShowProducts = () => {
       })
         .then(res => setData(res.data))
         .catch(err => console.log(err))
+      const storage = { ...localStorage }
+      delete storage.jwt
+      const products = storage;
+      setCartSize(Object.keys(products).length);
     }
   }, [])
 
-  const filteredData = useMemo(()=>{
+  const filteredData = useMemo(() => {
     return Data.filter(value => {
-        if (search === "") {
-          return value;
-        } if (value.productName.toLowerCase().includes(search.toLowerCase())) {
-          return value.productName
-        }
-        return null;
-      })
+      if (search === "") {
+        return value;
+      } if (value.productName.toLowerCase().includes(search.toLowerCase())) {
+        return value.productName
+      }
+      return null;
+    })
   })
 
   const logoutUser = () => {
@@ -60,6 +65,7 @@ const ShowProducts = () => {
                   <a href="/cart">
                     <BsFillCartFill size={34} color={"white"} className='mx-2 mt-1' />
                   </a>
+                  <p style={{background:"red",borderRadius:"50%",width:"3rem"}} className="text-white text-center mt-2">{cartSize}</p>
                   <Link to="/user">
                     <FaUserEdit size={37} color={"white"} className='mx-2 mt-1' />
                   </Link>
