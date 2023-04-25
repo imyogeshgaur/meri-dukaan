@@ -26,8 +26,7 @@ const ShowProducts = () => {
         .catch(err => console.log(err))
       const storage = { ...localStorage }
       delete storage.jwt
-      const products = storage;
-      setCartSize(Object.keys(products).length);
+      setCartSize(Object.keys(storage).length);
     }
   }, [])
 
@@ -65,7 +64,7 @@ const ShowProducts = () => {
                   <a href="/cart">
                     <BsFillCartFill size={34} color={"white"} className='mx-2 mt-1' />
                   </a>
-                  <p style={{background:"red",borderRadius:"50%",width:"3rem"}} className="text-white text-center mt-2">{cartSize}</p>
+                  <p style={{background:"red",borderRadius:"50%",width:"2.8rem"}} className="text-white text-center mt-2">{cartSize}</p>
                   <Link to="/user">
                     <FaUserEdit size={37} color={"white"} className='mx-2 mt-1' />
                   </Link>
